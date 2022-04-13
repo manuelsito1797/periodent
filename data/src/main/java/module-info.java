@@ -3,7 +3,9 @@
  * periodent
  */module data {
 
-      requires domain;
+    requires domain;
+    requires adapter;
+    requires java.sql;
 
-     exports com.project.data;
+    exports com.project.data.user;
 }

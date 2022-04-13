@@ -10,9 +10,16 @@ module com.project.app {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
+    requires io.activej.inject;
+    requires io.activej.types;
+
     requires domain;
     requires data;
+    requires adapter;
 
     opens com.project.app to javafx.fxml;
+    opens com.project.app.controller to javafx.fxml;
+    opens com.project.app.di.activej to io.activej.inject;
     exports com.project.app;
+    exports com.project.app.controller;
 }

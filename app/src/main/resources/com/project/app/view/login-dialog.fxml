@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="180.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.app.controller.LoginDialogController">
+    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eaecee" height="59.0" layoutX="5.0" layoutY="109.0" stroke="TRANSPARENT" strokeType="INSIDE" width="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <TextField fx:id="usernameField" layoutX="134.0" layoutY="40.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="66.0" />
+        <Label layoutX="67.0" layoutY="44.0" text="Usuario" />
+        <Label layoutX="67.0" layoutY="76.0" text="Contraseña" />
+        <PasswordField fx:id="passwordField" layoutX="134.0" layoutY="72.0" prefHeight="25.0" prefWidth="180.0" />
+        <HBox layoutX="262.0" layoutY="136.0" spacing="8.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="12.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleSignUp" prefHeight="32.0" prefWidth="80.0" text="Iniciar" />
+                <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="32.0" prefWidth="80.0" text="Cancelar" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

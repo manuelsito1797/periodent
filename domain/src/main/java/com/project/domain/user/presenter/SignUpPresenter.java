@@ -27,7 +27,7 @@ public class SignUpPresenter implements UseCaseWithParam.Callback<UserResponseMo
 
     @Override
     public void onSuccess(UserResponseModel result) {
-        new UserPreferences().setUserPreferences(result);
+        UserPreferences.getInstance().setUserPreferences(result);
         view.show(result);
     }
 

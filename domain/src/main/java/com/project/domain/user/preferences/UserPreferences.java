@@ -14,6 +14,17 @@ import java.util.prefs.Preferences;
  */
 public class UserPreferences {
 
+    private static UserPreferences instance;
+
+    private UserPreferences() {}
+
+    public static UserPreferences getInstance() {
+        if(instance == null) {
+            return new UserPreferences();
+        }
+        return instance;
+    }
+
     public void setUserPreferences(UserResponseModel response) {
         var prefs = Preferences.userNodeForPackage(this.getClass());
         prefs.putInt("id", response.getId());

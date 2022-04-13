@@ -3,6 +3,7 @@ package com.project.app.controller;
 import com.project.app.di.activej.ActiveJ;
 import com.project.app.layout.FactoryLayout;
 import com.project.app.layout.Layout;
+import com.project.domain.user.interactor.SignUp;
 import com.project.domain.user.model.UserResponseModel;
 import com.project.domain.user.presenter.SignUpPresenter;
 import com.project.domain.view.View;
@@ -44,8 +45,9 @@ public class LoginDialogController implements View<UserResponseModel> {
 
     @FXML
     public void handleSignUp() {
-        var singUpPresenter = ActiveJ.getInstance(SignUpPresenter.class);
-        singUpPresenter.signUp(usernameField.getText(), passwordField.getText());
+        var signUp = ActiveJ.getInstance(SignUp.class);
+        var signUpPresenter = new SignUpPresenter(signUp, this);
+        signUpPresenter.signUp(usernameField.getText(), passwordField.getText());
     }
 
     /**
@@ -56,14 +58,17 @@ public class LoginDialogController implements View<UserResponseModel> {
         dialogStage.close();
     }
 
+    @FXML
     @Override
     public void show(UserResponseModel value) {
+        System.out.println(value.toString());
         initRootLayout();
+        dialogStage.close();
     }
 
     @Override
     public void showErrorMessage(Throwable throwable) {
-        // Show the error message.
+        // Mostrar mensage de error.
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Datos Inválidos");
         alert.setHeaderText(throwable.getMessage());

@@ -1,6 +1,8 @@
 package com.project.app.controller;
 
 import com.project.app.PeriodentApp;
+import com.project.app.layout.FactoryLayout;
+import com.project.app.layout.Layout;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -22,6 +24,14 @@ public class RootLayoutController {
      */
     public void setPeriodentApp(PeriodentApp periodentApp) {
         this.periodentApp = periodentApp;
+    }
+
+    @FXML
+    public void handleOpenUserView() {
+        var userLayout = FactoryLayout.getLayout(Layout.Type.UserLayout);
+        assert userLayout != null;
+        userLayout.setOwner(periodentApp.getRootStage());
+        userLayout.init();
     }
 
     /**

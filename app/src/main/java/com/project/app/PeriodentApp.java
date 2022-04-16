@@ -1,6 +1,9 @@
 package com.project.app;
 
 import com.project.app.controller.LoginDialogController;
+import com.project.app.controller.RootLayoutController;
+import com.project.app.layout.FactoryLayout;
+import com.project.app.layout.Layout;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,13 +20,11 @@ import java.io.IOException;
 public class PeriodentApp extends Application {
 
     private Stage stage;
-    //private BorderPane rootLayout;
+    private Layout rootLayout;
 
     @Override
     public void start(Stage stage) {
-        this.stage = stage;
-        this.stage.setTitle("Periodental");
-
+        initRootLayout();
         showLoginDialog();
     }
 
@@ -45,12 +46,30 @@ public class PeriodentApp extends Application {
             // Establecer dialog
             LoginDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setLoginSuccessListener(this::showRootLayout);
 
             // Mostrar dialog de inicio de sesión
             dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void initRootLayout() {
+        var rootLayout = FactoryLayout.getLayout(Layout.Type.RootLayout);
+        assert rootLayout != null;
+        RootLayoutController controller = rootLayout.getLoader().getController();
+        this.stage = rootLayout.getStage();
+        controller.setPeriodentApp(this);
+        this.rootLayout = rootLayout;
+    }
+
+    private void showRootLayout() {
+        rootLayout.init();
+    }
+
+    public Stage getRootStage() {
+        return stage;
     }
 
     public static void main(String[] args) {

@@ -38,7 +38,7 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
         List<UserDsRequestModel> users = new ArrayList<>();
 
         try {
-            var sql = "select * from t_usuario where f_estado = true";
+            var sql = "select * from t_usuario";
             var result = executeQuery(sql);
 
             assert result != null;

@@ -13,8 +13,15 @@ import java.io.IOException;
  */
 public class RootLayout extends Layout {
 
+    private BorderPane rootLayout;
+
     public RootLayout(String resource) {
         super(resource);
+        try {
+            rootLayout = (BorderPane) getLoader().load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -25,16 +32,16 @@ public class RootLayout extends Layout {
         var name = user.getName();
         var lastname = user.getLastname();
 
-        try {
-            // Show the scene containing the root layout.
-            var rootLayout = (BorderPane) loader.load();
-            Scene scene = new Scene(rootLayout);
-            var stage = new Stage();
-            stage.setTitle("Periodental - " + name + " " + lastname);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+        stage = new Stage();
+        stage.setTitle("Periodental - " + name + " " + lastname);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @Override
+    public Stage getStage() {
+        return stage;
     }
 }

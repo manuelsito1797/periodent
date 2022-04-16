@@ -1,8 +1,6 @@
 package com.project.app.controller;
 
 import com.project.app.di.activej.ActiveJ;
-import com.project.app.layout.FactoryLayout;
-import com.project.app.layout.Layout;
 import com.project.domain.user.interactor.SignUp;
 import com.project.domain.user.model.UserResponseModel;
 import com.project.domain.user.presenter.SignUpPresenter;
@@ -18,6 +16,16 @@ import javafx.stage.Stage;
  * periodent
  */
 public class LoginDialogController implements View<UserResponseModel> {
+
+    private LoginSuccessListener listener;
+
+    public interface LoginSuccessListener {
+        void onLoginSuccess();
+    }
+
+    public void setLoginSuccessListener(LoginSuccessListener listener) {
+        this.listener = listener;
+    }
 
     @FXML
     private TextField usernameField;
@@ -62,7 +70,7 @@ public class LoginDialogController implements View<UserResponseModel> {
     @Override
     public void show(UserResponseModel value) {
         System.out.println(value.toString());
-        initRootLayout();
+        listener.onLoginSuccess();
         dialogStage.close();
     }
 
@@ -74,11 +82,5 @@ public class LoginDialogController implements View<UserResponseModel> {
         alert.setHeaderText(throwable.getMessage());
         alert.setContentText("Error al iniciar sesión");
         alert.showAndWait();
-    }
-
-    private void initRootLayout() {
-        var rootLayout = FactoryLayout.getLayout(Layout.Type.RootLayout, "view/root-layout.fxml");
-        assert rootLayout != null;
-        rootLayout.init();
     }
 }

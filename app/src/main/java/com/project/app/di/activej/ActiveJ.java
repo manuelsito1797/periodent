@@ -8,6 +8,7 @@ import com.project.data.user.DSUser;
 import com.project.data.user.UserRepositoryImpl;
 import com.project.domain.gateway.DsGateway;
 import com.project.domain.security.SecurityAdapter;
+import com.project.domain.user.interactor.GetAllUsers;
 import com.project.domain.user.interactor.SignUp;
 import com.project.domain.user.model.UserDsRequestModel;
 import com.project.domain.user.repository.UserRepository;
@@ -57,6 +58,11 @@ public class ActiveJ {
         @Provides
         LoginDialogController loginDialogController() {
             return new LoginDialogController();
+        }
+
+        @Provides
+        GetAllUsers getAllUsers(UserRepository repository) {
+             return new GetAllUsers(repository);
         }
     };
 

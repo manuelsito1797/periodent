@@ -17,17 +17,17 @@ public class FXUser {
     private final StringProperty phone;
     private final StringProperty email;
     private final StringProperty username;
-    private final IntegerProperty createdBy;
+    private final StringProperty createdBy;
     private final Property<Timestamp> creationDate;
     private final BooleanProperty status;
 
     public FXUser() {
         this(0, null, null, null, null,
-                null, null, 0, null, false);
+                null, null, null, null, false);
     }
 
     public FXUser(int id, String name, String lastname, String dni, String phone, String email,
-                  String username, int createdBy, Timestamp creationDate ,boolean status) {
+                  String username, String createdBy, Timestamp creationDate ,boolean status) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.lastname = new SimpleStringProperty(lastname);
@@ -35,7 +35,7 @@ public class FXUser {
         this.phone = new SimpleStringProperty(phone);
         this.email = new SimpleStringProperty(email);
         this.username = new SimpleStringProperty(username);
-        this.createdBy = new SimpleIntegerProperty(createdBy);
+        this.createdBy = new SimpleStringProperty(createdBy);
         this.creationDate = new SimpleObjectProperty<>(creationDate);
         this.status = new SimpleBooleanProperty(status);
     }
@@ -124,15 +124,15 @@ public class FXUser {
         this.username.set(username);
     }
 
-    public int getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy.get();
     }
 
-    public IntegerProperty createdByProperty() {
+    public StringProperty createdByProperty() {
         return createdBy;
     }
 
-    public void setCreatedBy(int createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy.set(createdBy);
     }
 

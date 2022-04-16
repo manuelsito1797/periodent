@@ -34,7 +34,7 @@ public class UserPreferences {
         prefs.put("phone", response.getPhone());
         prefs.put("email", response.getEmail());
         prefs.put("username", response.getUsername());
-        prefs.putInt("createdBy", response.getCreatedBy());
+        prefs.put("createdBy", response.getCreatedBy());
         prefs.put("creationDate", response.getCreationDate().toString());
         prefs.putBoolean("status", response.isStatus());
     }
@@ -52,6 +52,6 @@ public class UserPreferences {
         return new UserResponseModel(prefs.getInt("id", 0), prefs.get("name", ""),
                 prefs.get("lastname", ""), prefs.get("dni", ""), prefs.get("phone", ""),
                 prefs.get("email", ""), prefs.get("username", ""),
-                prefs.getInt("createdBy", 0), timestamp, prefs.getBoolean("status", false));
+                prefs.get("createdBy", ""), timestamp, prefs.getBoolean("status", false));
     }
 }

@@ -28,8 +28,11 @@ public class SignUp implements UseCaseWithParam<LoginRequestModel, UserResponseM
 
             var user = repository.findByUsername(param.getUsername());
 
+            var creatorUser = repository.findById(user.getCreatedBy());
+            var creatorUserName = creatorUser.getName() + " " + creatorUser.getLastname();
+
             var response = new UserResponseModel(user.getId(), user.getName(), user.getLastname(),
-                    user.getDni(), user.getPhone(), user.getEmail(), user.getUsername(), user.getCreatedBy(),
+                    user.getDni(), user.getPhone(), user.getEmail(), user.getUsername(), creatorUserName,
                     user.getCreationDate(), user.isStatus());
 
             callback.onSuccess(response);

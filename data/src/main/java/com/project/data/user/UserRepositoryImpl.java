@@ -30,7 +30,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public CommonUser findById(int id) {
-        return null;
+        var dsUser = userDsGateway.read(id);
+        return converter.convertEntityToDto(dsUser, CommonUser.class);
     }
 
     @Override

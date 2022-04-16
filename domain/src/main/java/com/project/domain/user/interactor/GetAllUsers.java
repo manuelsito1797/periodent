@@ -26,8 +26,11 @@ public class GetAllUsers implements UseCase<List<UserResponseModel>> {
             var users = repository.findAll();
 
             for (var user: users) {
+                var creatorUser = repository.findById(user.getCreatedBy());
+                var creatorUserName = creatorUser.getName() + " " + creatorUser.getLastname();
+
                 userResponseModels.add(new UserResponseModel(user.getId(), user.getName(), user.getLastname(),
-                        user.getDni(), user.getPhone(), user.getEmail(), user.getUsername(), user.getCreatedBy(),
+                        user.getDni(), user.getPhone(), user.getEmail(), user.getUsername(), creatorUserName,
                         user.getCreationDate(), user.isStatus()));
             }
 

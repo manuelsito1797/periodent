@@ -15,12 +15,12 @@ public class UserResponseModel {
     private final String phone;
     private final String email;
     private final String username;
-    private final int createdBy;
+    private final String createdBy;
     private final Timestamp creationDate;
     private final boolean status;
 
     public UserResponseModel(int id, String name, String lastname, String dni, String phone,
-                             String email, String username, int createdBy, Timestamp creationDate,
+                             String email, String username, String createdBy, Timestamp creationDate,
                              boolean status) {
         this.id = id;
         this.name = name;
@@ -62,7 +62,7 @@ public class UserResponseModel {
         return username;
     }
 
-    public int getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 

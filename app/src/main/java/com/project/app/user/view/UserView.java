@@ -46,7 +46,7 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
     @FXML private TableColumn<FXUser, String> columnPhone = new TableColumn<>("Teléfono");
     @FXML private TableColumn<FXUser, String> columnEmail = new TableColumn<>("Email");
     @FXML private TableColumn<FXUser, String> columnUsername = new TableColumn<>("Usuario");
-    @FXML private TableColumn<FXUser, Number> columnCreatedBy = new TableColumn<>("Creado Por");
+    @FXML private TableColumn<FXUser, String> columnCreatedBy = new TableColumn<>("Creado Por");
     @FXML private TableColumn<FXUser, Timestamp> columnCreationDate = new TableColumn<>("Fecha Creación");
     @FXML private TableColumn<FXUser, Boolean> columnStatus = new TableColumn<>("Activo");
 

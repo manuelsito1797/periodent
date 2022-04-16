@@ -30,7 +30,18 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
 
     @Override
     public UserDsRequestModel read(int id) {
-        return null;
+        var sql = "select * from t_usuario where f_id = " + id;
+        var result = executeQuery(sql);
+
+        try {
+            assert result != null;
+            if(!result.next()) return null;
+
+            return getUserFromResult(result);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -43,24 +54,9 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
 
             assert result != null;
             while (result.next()) {
-                int id = result.getInt(1);
-                String name = result.getString(2);
-                String lastname = result.getString(3);
-                String dni = result.getString(4);
-                String phone = result.getString(5);
-                String email = result.getString(6);
-                String username = result.getString(7);
-                String password = result.getString(8);
-                int createdBy = result.getInt(9);
-                Timestamp creationDate = result.getTimestamp(10);
-                boolean status = result.getBoolean(11);
-
-                var current = new UserDsRequestModel(id, name, lastname, dni, phone, email,
-                        username, password, createdBy, creationDate, status);
-
+                var current = getUserFromResult(result);
                 users.add(current);
             }
-
             return users;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,6 +72,28 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
     @Override
     public void delete(int id) {
 
+    }
+
+    private UserDsRequestModel getUserFromResult(ResultSet result) {
+        try {
+            int id = result.getInt(1);
+            String name = result.getString(2);
+            String lastname = result.getString(3);
+            String dni = result.getString(4);
+            String phone = result.getString(5);
+            String email = result.getString(6);
+            String username = result.getString(7);
+            String password = result.getString(8);
+            int createdBy = result.getInt(9);
+            Timestamp creationDate = result.getTimestamp(10);
+            boolean status = result.getBoolean(11);
+
+            return new UserDsRequestModel(id, name, lastname, dni, phone, email,
+                    username, password, createdBy, creationDate, status);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private ResultSet executeQuery(String sql) {

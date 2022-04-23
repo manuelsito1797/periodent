@@ -1,5 +1,6 @@
 package com.project.app.controller;
 
+import com.project.app.PeriodentApp;
 import com.project.app.di.activej.ActiveJ;
 import com.project.domain.user.interactor.SignUp;
 import com.project.domain.user.model.UserResponseModel;
@@ -34,6 +35,12 @@ public class LoginDialogController implements View<UserResponseModel> {
     private PasswordField passwordField;
 
     private Stage dialogStage;
+
+    private PeriodentApp periodentApp;
+
+    public void setPeriodentApp(PeriodentApp periodentApp) {
+        this.periodentApp = periodentApp;
+    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -70,7 +77,8 @@ public class LoginDialogController implements View<UserResponseModel> {
     @Override
     public void show(UserResponseModel value) {
         System.out.println(value.toString());
-        listener.onLoginSuccess();
+        //listener.onLoginSuccess();
+        periodentApp.showRootLayout();
         dialogStage.close();
     }
 

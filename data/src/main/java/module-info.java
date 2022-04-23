@@ -8,4 +8,5 @@
     requires java.sql;
 
     exports com.project.data.user;
+    exports com.project.data.user.permission;
 }

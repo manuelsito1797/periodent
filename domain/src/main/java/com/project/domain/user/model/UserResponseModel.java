@@ -1,6 +1,9 @@
 package com.project.domain.user.model;
 
+import com.project.domain.user.model.permission.Permission;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author dhelarius 10/4/2022
@@ -18,6 +21,7 @@ public class UserResponseModel {
     private final String createdBy;
     private final Timestamp creationDate;
     private final boolean status;
+    private List<Permission> permissions;
 
     public UserResponseModel(int id, String name, String lastname, String dni, String phone,
                              String email, String username, String createdBy, Timestamp creationDate,
@@ -72,6 +76,14 @@ public class UserResponseModel {
 
     public boolean isStatus() {
         return status;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
     }
 
     public String toString() {

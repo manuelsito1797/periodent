@@ -1,42 +1,56 @@
 package com.project.app.layout;
 
-import com.project.app.PeriodentApp;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 /**
- * @author dhelarius 13/4/2022
+ * @author dhelarius 17/4/2022
  * periodent
  */
-public abstract class Layout {
+public class Layout {
 
-    public enum Type {
-        RootLayout,
-        UserLayout
+    private final LayoutType layoutType;
+    private final Stage stage;
+    private final Parent parent;
+    private final String title;
+    private final Modality modality;
+    private final Window owner;
+
+    public Layout(LayoutType layoutType, Stage stage, Parent parent, String title,
+                  Modality modality, Window owner) {
+        this.layoutType = layoutType;
+        this.stage = stage;
+        this.parent = parent;
+        this.title = title;
+        this.modality = modality;
+        this.owner = owner;
     }
 
-    private final FXMLLoader loader;
-    protected Stage stage;
-    protected Window window;
+    public void show() {
+        stage.setTitle(title);
 
-    public Layout(String resource) {
-        loader = new FXMLLoader();
-        loader.setLocation(PeriodentApp.class.getResource(resource));
-        stage = new Stage();
+        if(modality != null)
+        stage.initModality(modality);
+
+        if(owner != null)
+        stage.initOwner(owner);
+
+        stage.setScene(new Scene(parent));
+
+        switch (modality) {
+            case WINDOW_MODAL: stage.showAndWait(); break;
+            default: stage.show();
+        }
     }
 
-    public abstract void init();
+    public LayoutType getLayoutType() {
+        return layoutType;
+    }
 
     public Stage getStage() {
         return stage;
-    }
-
-    public void setOwner(Window window) {
-        this.window = window;
-    }
-
-    public FXMLLoader getLoader() {
-        return loader;
     }
 }

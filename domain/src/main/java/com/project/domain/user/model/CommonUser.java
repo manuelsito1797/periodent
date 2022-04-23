@@ -1,6 +1,9 @@
 package com.project.domain.user.model;
 
+import com.project.domain.user.model.permission.Permission;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author dhelarius 10/4/2022
@@ -19,6 +22,7 @@ public class CommonUser implements User {
     private int createdBy;
     private Timestamp creationDate;
     private boolean status;
+    private List<Permission> permissions;
 
     public CommonUser() {}
 
@@ -125,6 +129,14 @@ public class CommonUser implements User {
 
     public boolean isStatus() {
         return status;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
     }
 
     @Override

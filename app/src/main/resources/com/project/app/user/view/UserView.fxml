@@ -36,6 +36,7 @@
                                     </CheckBox>
                                  </children>
                               </GridPane>
+                              <Button layoutX="490.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleNew" text="Nuevo" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children></AnchorPane>
                      </content></TitledPane>
                </children>
@@ -63,16 +64,6 @@
                         </TableView>
                      </content>
                   </ScrollPane>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="45.0" prefWidth="576.0">
-               <children>
-                  <ButtonBar layoutX="57.0" layoutY="21.0" prefHeight="41.0" prefWidth="576.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <buttons>
-                      <Button mnemonicParsing="false" text="Guardar" />
-                        <Button mnemonicParsing="false" text="Cancelar" />
-                    </buttons>
-                  </ButtonBar>
                </children>
             </AnchorPane>
          </children>

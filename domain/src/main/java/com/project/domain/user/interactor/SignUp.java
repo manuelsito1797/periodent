@@ -35,6 +35,9 @@ public class SignUp implements UseCaseWithParam<LoginRequestModel, UserResponseM
                     user.getDni(), user.getPhone(), user.getEmail(), user.getUsername(), creatorUserName,
                     user.getCreationDate(), user.isStatus());
 
+            // Agregar la lista de permisos al usuario
+            response.setPermissions(user.getPermissions());
+
             callback.onSuccess(response);
         } catch(final Throwable throwable) {
             callback.onError(throwable);

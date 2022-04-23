@@ -1,5 +1,6 @@
 package com.project.app.user.view;
 
+import com.project.app.PeriodentApp;
 import com.project.app.user.model.FXUser;
 import com.project.app.user.viewmodel.UserViewModel;
 import de.saxsys.mvvmfx.FxmlView;
@@ -49,6 +50,12 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
     @FXML private TableColumn<FXUser, String> columnCreatedBy = new TableColumn<>("Creado Por");
     @FXML private TableColumn<FXUser, Timestamp> columnCreationDate = new TableColumn<>("Fecha Creación");
     @FXML private TableColumn<FXUser, Boolean> columnStatus = new TableColumn<>("Activo");
+
+    private PeriodentApp periodentApp;
+
+    public void setPeriodentApp(PeriodentApp periodentApp) {
+        this.periodentApp = periodentApp;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -136,5 +143,10 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @FXML
+    public void handleNew() {
+        periodentApp.showEditUserLayout();
     }
 }

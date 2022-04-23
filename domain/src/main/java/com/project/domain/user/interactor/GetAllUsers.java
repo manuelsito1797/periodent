@@ -29,9 +29,14 @@ public class GetAllUsers implements UseCase<List<UserResponseModel>> {
                 var creatorUser = repository.findById(user.getCreatedBy());
                 var creatorUserName = creatorUser.getName() + " " + creatorUser.getLastname();
 
-                userResponseModels.add(new UserResponseModel(user.getId(), user.getName(), user.getLastname(),
+                var response = new UserResponseModel(user.getId(), user.getName(), user.getLastname(),
                         user.getDni(), user.getPhone(), user.getEmail(), user.getUsername(), creatorUserName,
-                        user.getCreationDate(), user.isStatus()));
+                        user.getCreationDate(), user.isStatus());
+
+                // Agregar la lista de permisos al usuario
+                response.setPermissions(user.getPermissions());
+
+                userResponseModels.add(response);
             }
 
             callback.onSuccess(userResponseModels);

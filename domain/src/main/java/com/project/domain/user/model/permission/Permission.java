@@ -1,0 +1,44 @@
+package com.project.domain.user.model.permission;
+
+/**
+ * @author dhelarius 17/4/2022
+ * periodent
+ */
+public class Permission {
+
+    private int id;
+    private String description;
+    private boolean assigned;
+
+    public Permission() {}
+
+    public Permission(int id, String description, boolean assigned) {
+        this.id = id;
+        this.description = description;
+        this.assigned = assigned;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        this.assigned = assigned;
+    }
+}

@@ -41,10 +41,10 @@ public class DSPermission implements DsGateway<PermissionDsRequestModel> {
         List<PermissionDsRequestModel> permissions = new ArrayList<>();
 
         try {
-            var sql = "SELECT p.f_id,p.f_descripcion,\n" +
+            var sql = "SELECT p.f_id,p.f_descripcion,p.f_key,\n" +
                     "(SELECT (CASE WHEN pu.f_id_permiso = p.f_id THEN true ELSE false END)\n" +
-                    "FROM t_permiso_usuario pu WHERE pu.f_id_usuario = " + id + ") AS asignado\n" +
-                    "FROM t_permiso p LEFT JOIN t_permiso_usuario pu ON pu.f_id_permiso = p.f_id " +
+                    "FROM t_permiso_usuario pu WHERE pu.f_id_usuario = 1 AND pu.f_id_permiso = p.f_id) AS asignado\n" +
+                    "FROM t_permiso p LEFT JOIN t_permiso_usuario pu ON pu.f_id_permiso = p.f_id\n" +
                     "WHERE p.f_estado = true";
             var result = executeQuery(sql);
 
@@ -61,22 +61,19 @@ public class DSPermission implements DsGateway<PermissionDsRequestModel> {
     }
 
     @Override
-    public void update(PermissionDsRequestModel requestModel) {
-
-    }
+    public void update(PermissionDsRequestModel requestModel) {}
 
     @Override
-    public void delete(int id) {
-
-    }
+    public void delete(int id) {}
 
     private PermissionDsRequestModel getPermissionFromResult(ResultSet result) {
         try {
             int id = result.getInt(1);
             String description = result.getString(2);
-            boolean assigned = result.getBoolean(3);
+            String key = result.getString(3);
+            boolean assigned = result.getBoolean(4);
 
-            return new PermissionDsRequestModel(id, description, assigned);
+            return new PermissionDsRequestModel(id, description, key, assigned);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

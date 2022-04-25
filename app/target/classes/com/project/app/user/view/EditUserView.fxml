@@ -8,105 +8,102 @@
    <children>
       <VBox layoutX="67.0" layoutY="44.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
          <children>
-            <AnchorPane prefHeight="195.0" prefWidth="576.0">
+            <AnchorPane maxHeight="-Infinity" prefHeight="164.0">
                <children>
-                  <TitledPane collapsible="false" layoutY="-26.0" prefHeight="157.0" prefWidth="576.0" text="Datos Personales" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TitledPane collapsible="false" layoutY="-26.0" prefHeight="89.0" text="Datos Personales" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <content>
-                        <GridPane prefHeight="126.0" prefWidth="574.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="73.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="465.0" minWidth="10.0" prefWidth="153.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="465.0" minWidth="0.0" prefWidth="62.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="465.0" minWidth="10.0" prefWidth="151.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="465.0" minWidth="10.0" prefWidth="117.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label text="Nombre">
-                                 <GridPane.margin>
-                                    <Insets left="8.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="Teléfono" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="8.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="Email" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="8.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <TextField GridPane.columnIndex="1" />
-                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
-                              <Label text="Apellido" GridPane.columnIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="8.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="Cédula" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="8.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <TextField GridPane.columnIndex="3" />
-                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <GridPane hgap="8.0" layoutX="19.6" layoutY="19.6" maxWidth="-Infinity" prefHeight="89.0" prefWidth="409.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="73.0" minWidth="10.0" prefWidth="60.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="150.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="10.0" prefWidth="60.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Nombre" />
+                                    <Label text="Teléfono" GridPane.rowIndex="1" />
+                                    <Label text="Email" GridPane.rowIndex="2" />
+                                    <Label text="Apellido" GridPane.columnIndex="2" />
+                                    <Label text="Cédula" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <TextField fx:id="nameField" GridPane.columnIndex="1" />
+                                    <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+                                    <TextField fx:id="lastnameField" GridPane.columnIndex="3" />
+                                    <TextField fx:id="dniField" prefHeight="25.0" prefWidth="140.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                 </children>
+                              </GridPane>
                            </children>
-                        </GridPane>
+                        </AnchorPane>
                      </content>
                   </TitledPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="198.0" prefWidth="576.0">
+            <AnchorPane prefHeight="164.0">
                <children>
-                  <TitledPane collapsible="false" layoutX="66.0" layoutY="-14.0" prefHeight="142.0" prefWidth="576.0" text="Datos del Usuario" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0">
-                     <content>
-                        <GridPane>
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="140.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="96.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="97.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="277.0" minWidth="10.0" prefWidth="221.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                  <HBox prefHeight="177.0" prefWidth="576.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Usuario">
-                                 <GridPane.margin>
-                                    <Insets left="8.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="Contraseña" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="8.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="Confirmar Contraseña" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="8.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" />
-                              <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-                              <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                              <TitledPane collapsible="false" layoutX="66.0" layoutY="-14.0" prefHeight="89.0" prefWidth="470.0" text="Datos del Usuario" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane hgap="8.0" layoutX="19.6" layoutY="19.6" prefHeight="97.0" prefWidth="293.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.99999237060547" minWidth="10.0" prefWidth="126.99999237060547" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="73.00000762939453" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="Usuario" />
+                                                <Label text="Contraseña" GridPane.rowIndex="1" />
+                                                <Label text="Confirmar Contraseña" GridPane.rowIndex="2" />
+                                                <TextField fx:id="usernameField" prefWidth="0.0" GridPane.columnIndex="1" />
+                                                <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <PasswordField fx:id="confirmPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </TitledPane>
                            </children>
-                        </GridPane>
-                     </content>
-                  </TitledPane>
-               </children></AnchorPane>
+                           <HBox.margin>
+                              <Insets right="12.0" />
+                           </HBox.margin>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="350.0">
+                           <children>
+                              <TitledPane animated="false" collapsible="false" prefHeight="206.0" prefWidth="222.0" text="Permisos" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <ListView fx:id="permissionListView" prefHeight="200.0" prefWidth="200.0" />
+                                 </content>
+                              </TitledPane>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="12.0" />
+               </VBox.margin>
+            </AnchorPane>
             <AnchorPane prefHeight="101.0" prefWidth="576.0">
                <children>
-                  <ButtonBar prefHeight="89.0" prefWidth="576.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ButtonBar prefHeight="68.0" prefWidth="576.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Guardar" />
+                      <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveUser" text="Guardar" />
                         <Button mnemonicParsing="false" onAction="#handleClose" text="Cancelar" />
                     </buttons>
                   </ButtonBar>

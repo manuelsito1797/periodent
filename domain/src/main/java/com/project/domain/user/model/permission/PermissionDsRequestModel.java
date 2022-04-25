@@ -8,11 +8,13 @@ public class PermissionDsRequestModel {
 
     private int id;
     private String description;
+    private String key;
     private boolean assigned;
 
-    public PermissionDsRequestModel(int id, String description, boolean assigned) {
+    public PermissionDsRequestModel(int id, String description, String key, boolean assigned) {
         this.id = id;
         this.description = description;
+        this.key = key;
         this.assigned = assigned;
     }
 
@@ -30,6 +32,14 @@ public class PermissionDsRequestModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public boolean isAssigned() {

@@ -18,16 +18,6 @@ import javafx.stage.Stage;
  */
 public class LoginDialogController implements View<UserResponseModel> {
 
-    private LoginSuccessListener listener;
-
-    public interface LoginSuccessListener {
-        void onLoginSuccess();
-    }
-
-    public void setLoginSuccessListener(LoginSuccessListener listener) {
-        this.listener = listener;
-    }
-
     @FXML
     private TextField usernameField;
 
@@ -43,13 +33,6 @@ public class LoginDialogController implements View<UserResponseModel> {
     }
 
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
-    @FXML
-    private void initialize() {}
-
-    /**
      * Establecer escenario para este dialog
      *
      * @param dialogStage
@@ -57,6 +40,13 @@ public class LoginDialogController implements View<UserResponseModel> {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
+
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the fxml file has been loaded.
+     */
+    @FXML
+    private void initialize() {}
 
     @FXML
     public void handleSignUp() {
@@ -77,7 +67,6 @@ public class LoginDialogController implements View<UserResponseModel> {
     @Override
     public void show(UserResponseModel value) {
         System.out.println(value.toString());
-        //listener.onLoginSuccess();
         periodentApp.showRootLayout();
         dialogStage.close();
     }

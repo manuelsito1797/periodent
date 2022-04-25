@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.function.Predicate;
 import java.util.prefs.Preferences;
 
 /**
@@ -13,6 +14,12 @@ import java.util.prefs.Preferences;
  * periodent
  */
 public class UserPreferences {
+
+    public interface Restringer {
+        void onRestrict(Predicate<String> predicate);
+    }
+
+    private final Preferences prefs = Preferences.userNodeForPackage(this.getClass());
 
     private static UserPreferences instance;
 
@@ -26,7 +33,6 @@ public class UserPreferences {
     }
 
     public void setUserPreferences(UserResponseModel response) {
-        var prefs = Preferences.userNodeForPackage(this.getClass());
         prefs.putInt("id", response.getId());
         prefs.put("name", response.getName());
         prefs.put("lastname", response.getLastname());
@@ -37,6 +43,10 @@ public class UserPreferences {
         prefs.put("createdBy", response.getCreatedBy());
         prefs.put("creationDate", response.getCreationDate().toString());
         prefs.putBoolean("status", response.isStatus());
+
+        for(var permission : response.getPermissions()) {
+            prefs.putBoolean(permission.getKey(), permission.isAssigned());
+        }
     }
 
     public UserResponseModel getUserFromPreference() {
@@ -53,5 +63,17 @@ public class UserPreferences {
                 prefs.get("lastname", ""), prefs.get("dni", ""), prefs.get("phone", ""),
                 prefs.get("email", ""), prefs.get("username", ""),
                 prefs.get("createdBy", ""), timestamp, prefs.getBoolean("status", false));
+    }
+
+    public boolean assignPermission(String key) {
+        return prefs.getBoolean(key, false);
+    }
+
+    public void restrictFromPermission(Restringer restringer) {
+        restringer.onRestrict(this::assignPermission);
+    }
+
+    public Preferences getPreferences() {
+        return prefs;
     }
 }

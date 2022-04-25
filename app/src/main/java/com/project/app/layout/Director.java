@@ -23,10 +23,16 @@ import java.io.IOException;
  */
 public class Director {
 
+    private final String LOG = this.getClass().getSimpleName() + ": ";
+
+    private final PeriodentApp periodentApp;
+
+    // Root layouts
     private Stage rootFromRootLayout;
     private Stage rootFromUserLayout;
 
-    private final PeriodentApp periodentApp;
+    // ViewModel
+    private final UserViewModel userViewModel = new UserViewModel();
 
     public Director(PeriodentApp periodentApp) {
         this.periodentApp = periodentApp;
@@ -49,7 +55,7 @@ public class Director {
             builder.setStage(stage);
             builder.setParent(loginDialog);
             builder.setTitle("Iniciar sesion");
-            builder.setModality(Modality.WINDOW_MODAL);
+            builder.setModality(Modality.NONE);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,13 +83,15 @@ public class Director {
             builder.setStage(stage);
             builder.setParent(rootLayout);
             builder.setTitle("Periodental - " + name + " " + lastname);
+            builder.setModality(Modality.NONE);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void constructUserLayout(Builder builder) {
-        ViewTuple<UserView, UserViewModel> viewTuple = FluentViewLoader.fxmlView(UserView.class).load();
+        ViewTuple<UserView, UserViewModel> viewTuple = FluentViewLoader.fxmlView(UserView.class)
+                .viewModel(userViewModel).load();
         var userLayout = viewTuple.getView();
 
         var stage = new Stage();
@@ -100,7 +108,8 @@ public class Director {
     }
 
     public void constructEditUserLayout(Builder builder) {
-        ViewTuple<EditUserView, UserViewModel> viewTuple = FluentViewLoader.fxmlView(EditUserView.class).load();
+        ViewTuple<EditUserView, UserViewModel> viewTuple = FluentViewLoader.fxmlView(EditUserView.class)
+                .viewModel(userViewModel).load();
         var editUserLayout = viewTuple.getView();
 
         var stage = new Stage();

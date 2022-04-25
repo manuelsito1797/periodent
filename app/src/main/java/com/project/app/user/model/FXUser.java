@@ -1,8 +1,14 @@
 package com.project.app.user.model;
 
+import com.project.app.user.model.permission.FXPermission;
+import com.project.domain.user.model.permission.Permission;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author dhelarius 15/4/2022
@@ -20,14 +26,16 @@ public class FXUser {
     private final StringProperty createdBy;
     private final Property<Timestamp> creationDate;
     private final BooleanProperty status;
+    private final ObservableList<FXPermission> permissions;
 
     public FXUser() {
         this(0, null, null, null, null,
-                null, null, null, null, false);
+                null, null, null, null, false, null);
     }
 
     public FXUser(int id, String name, String lastname, String dni, String phone, String email,
-                  String username, String createdBy, Timestamp creationDate ,boolean status) {
+                  String username, String createdBy, Timestamp creationDate , boolean status,
+                  List<Permission> permissions) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.lastname = new SimpleStringProperty(lastname);
@@ -38,6 +46,14 @@ public class FXUser {
         this.createdBy = new SimpleStringProperty(createdBy);
         this.creationDate = new SimpleObjectProperty<>(creationDate);
         this.status = new SimpleBooleanProperty(status);
+
+        var fxPermissions = new ArrayList<FXPermission>();
+        for(var permission : permissions) {
+            fxPermissions.add(new FXPermission(permission.getId(), permission.getDescription(),
+                    permission.getKey(), permission.isAssigned()));
+        }
+        ObservableList<FXPermission> observableList = FXCollections.observableList(fxPermissions);
+        this.permissions = new SimpleListProperty<>(observableList);
     }
 
     public int getId() {
@@ -158,5 +174,25 @@ public class FXUser {
 
     public void setStatus(boolean status) {
         this.status.set(status);
+    }
+
+    public ObservableList<FXPermission> getPermissions() {
+        return permissions;
+    }
+
+    @Override
+    public String toString() {
+        return "FXUser{" +
+                "id=" + id.get() +
+                ", name=" + name.get() +
+                ", lastname=" + lastname.get() +
+                ", dni=" + dni.get() +
+                ", phone=" + phone.get() +
+                ", email=" + email.get() +
+                ", username=" + username.get() +
+                ", createdBy=" + createdBy.get() +
+                ", creationDate=" + creationDate.getValue() +
+                ", status=" + status.get() +
+                '}';
     }
 }

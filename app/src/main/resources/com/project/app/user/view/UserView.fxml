@@ -36,7 +36,7 @@
                                     </CheckBox>
                                  </children>
                               </GridPane>
-                              <Button layoutX="490.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleNew" text="Nuevo" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Button layoutX="490.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleNewUser" text="Nuevo" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children></AnchorPane>
                      </content></TitledPane>
                </children>

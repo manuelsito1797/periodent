@@ -3,7 +3,6 @@ package com.project.app;
 import com.project.app.layout.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import java.util.function.Consumer;
 
 /**
@@ -11,6 +10,8 @@ import java.util.function.Consumer;
  * periodent
  */
 public class PeriodentApp extends Application {
+
+    private final String LOG = this.getClass().getSimpleName();
 
     private Director director;
     private LayoutBuilder builder;

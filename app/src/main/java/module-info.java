@@ -15,6 +15,7 @@ module com.project.app {
     requires io.activej.types;
 
     requires java.sql;
+    requires java.prefs;
 
     requires domain;
     requires data;

@@ -19,8 +19,8 @@ public class Layout {
     private final Modality modality;
     private final Window owner;
 
-    public Layout(LayoutType layoutType, Stage stage, Parent parent, String title,
-                  Modality modality, Window owner) {
+    public Layout(LayoutType layoutType, Stage stage, Parent parent,
+                  String title, Modality modality, Window owner) {
         this.layoutType = layoutType;
         this.stage = stage;
         this.parent = parent;
@@ -32,7 +32,6 @@ public class Layout {
     public void show() {
         stage.setTitle(title);
 
-        if(modality != null)
         stage.initModality(modality);
 
         if(owner != null)
@@ -41,8 +40,8 @@ public class Layout {
         stage.setScene(new Scene(parent));
 
         switch (modality) {
-            case WINDOW_MODAL: stage.showAndWait(); break;
-            default: stage.show();
+            case NONE: stage.show(); break;
+            default: stage.showAndWait();
         }
     }
 

@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.input.MouseButton;
 
 import java.net.URL;
 import java.sql.Timestamp;
@@ -60,9 +61,20 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        viewModel.getUsers().removeAll(viewModel.getUsers());
+        viewModel.loadUsers();
+
         initUserColumns();
 
         filter();
+
+        usersTable.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+                var user = usersTable.getSelectionModel().getSelectedItem();
+                viewModel.setUser(user);
+                periodentApp.showEditUserLayout();
+            }
+        });
     }
 
     private void initUserColumns() {
@@ -146,7 +158,7 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
     }
 
     @FXML
-    public void handleNew() {
-        periodentApp.showEditUserLayout();
+    public void handleNewUser() {
+        // TODO: Crear nuevo usuario
     }
 }

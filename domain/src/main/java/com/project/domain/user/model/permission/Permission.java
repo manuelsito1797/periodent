@@ -8,13 +8,15 @@ public class Permission {
 
     private int id;
     private String description;
+    private String key;
     private boolean assigned;
 
     public Permission() {}
 
-    public Permission(int id, String description, boolean assigned) {
+    public Permission(int id, String description, String key, boolean assigned) {
         this.id = id;
         this.description = description;
+        this.key = key;
         this.assigned = assigned;
     }
 
@@ -32,6 +34,14 @@ public class Permission {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public boolean isAssigned() {

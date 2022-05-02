@@ -11,7 +11,7 @@ import java.util.List;
  * @author dhelarius 15/4/2022
  * periodent
  */
-public class UsersPresenter implements UseCase.Callback<List<UserResponseModel>>{
+public class UsersPresenter implements UseCase.Callback<List<UserResponseModel>> {
 
     private final GetAllUsers getAllUsers;
     private final View<List<UserResponseModel>> view;

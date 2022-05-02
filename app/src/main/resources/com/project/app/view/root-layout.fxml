@@ -14,7 +14,7 @@
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem fx:id="permissionsMenuItem" mnemonicParsing="false" text="Permisos">
+                  <MenuItem fx:id="permissionsMenuItem" mnemonicParsing="false" onAction="#handleOpenPermissionView" text="Permisos">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>

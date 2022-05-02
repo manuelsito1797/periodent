@@ -3,7 +3,7 @@ package com.project.app.user.model.permission;
 import javafx.beans.property.*;
 
 /**
- * @author dhelarius 23/4/2022
+ * @author dhelarius 27/4/2022
  * periodent
  */
 public class FXPermission {
@@ -11,17 +11,17 @@ public class FXPermission {
     private final IntegerProperty id;
     private final StringProperty description;
     private final StringProperty key;
-    private final BooleanProperty assigned;
+    private final BooleanProperty active;
 
     public FXPermission() {
-        this(0, null, null, false);
+        this(0, "", "", true);
     }
 
-    public FXPermission(int id, String description, String key, boolean assigned) {
+    public FXPermission(int id, String description, String key, boolean active) {
         this.id = new SimpleIntegerProperty(id);
         this.description = new SimpleStringProperty(description);
         this.key = new SimpleStringProperty(key);
-        this.assigned = new SimpleBooleanProperty(assigned);
+        this.active = new SimpleBooleanProperty(active);
     }
 
     public int getId() {
@@ -60,25 +60,25 @@ public class FXPermission {
         this.key.set(key);
     }
 
-    public boolean isAssigned() {
-        return assigned.get();
+    public boolean isActive() {
+        return active.get();
     }
 
-    public BooleanProperty assignedProperty() {
-        return assigned;
+    public BooleanProperty activeProperty() {
+        return active;
     }
 
-    public void setAssigned(boolean assigned) {
-        this.assigned.set(assigned);
+    public void setActive(boolean active) {
+        this.active.set(active);
     }
 
     @Override
     public String toString() {
         return "FXPermission{" +
-                "id=" + id +
-                ", description=" + description +
-                ", key=" + key +
-                ", assigned=" + assigned +
+                "id=" + id.get() +
+                ", description=" + description.get() +
+                ", key=" + key.get() +
+                ", active=" + active.get() +
                 '}';
     }
 }

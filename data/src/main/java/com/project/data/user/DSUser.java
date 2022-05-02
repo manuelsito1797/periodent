@@ -4,6 +4,7 @@ import com.project.adapter.db.DBFactory;
 import com.project.adapter.db.IDBAdapter;
 import com.project.domain.gateway.DsGateway;
 import com.project.domain.user.model.UserDsRequestModel;
+import util.DBUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +32,7 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
     @Override
     public UserDsRequestModel read(int id) {
         var sql = "select * from t_usuario where f_id = " + id;
-        var result = executeQuery(sql);
+        var result = DBUtil.executeQuery(sql);
 
         try {
             assert result != null;
@@ -50,7 +51,7 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
 
         try {
             var sql = "select * from t_usuario";
-            var result = executeQuery(sql);
+            var result = DBUtil.executeQuery(sql);
 
             assert result != null;
             while (result.next()) {
@@ -90,17 +91,6 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
 
             return new UserDsRequestModel(id, name, lastname, dni, phone, email,
                     username, password, createdBy, creationDate, status);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private ResultSet executeQuery(String sql) {
-        var connection = adapter.getConnection();
-        try {
-            var statement = connection.prepareStatement(sql);
-            return statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

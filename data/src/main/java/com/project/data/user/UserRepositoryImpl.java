@@ -1,11 +1,11 @@
 package com.project.data.user;
 
 import com.project.adapter.converter.modelmapper.EntityDtoConverter;
-import com.project.data.user.permission.DSPermission;
+import com.project.data.user.permission.UserPermissionDao;
 import com.project.domain.gateway.DsGateway;
 import com.project.domain.user.model.CommonUser;
 import com.project.domain.user.model.UserDsRequestModel;
-import com.project.domain.user.model.permission.Permission;
+import com.project.domain.user.model.permission.UserPermission;
 import com.project.domain.user.repository.UserRepository;
 
 import java.util.List;
@@ -17,14 +17,14 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
 
     private final DsGateway<UserDsRequestModel> userDsGateway;
-    private final DSPermission permissionDsGateway;
+    private final UserPermissionDao userPermissionDao;
     private final EntityDtoConverter converter;
 
     public UserRepositoryImpl(DsGateway<UserDsRequestModel> userDsGateway,
-                              DSPermission permissionDsGateway,
+                              UserPermissionDao userPermissionDao,
                               EntityDtoConverter converter) {
         this.userDsGateway = userDsGateway;
-        this.permissionDsGateway = permissionDsGateway;
+        this.userPermissionDao = userPermissionDao;
         this.converter = converter;
     }
 
@@ -80,8 +80,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
-    private List<Permission> getPermissions(int id) {
-        var permissionsFromDS = permissionDsGateway.readAllByUserId(id);
-        return converter.convertEntitiesToDto(permissionsFromDS, Permission.class);
+    private List<UserPermission> getPermissions(int id) {
+        var permissionsFromDS = userPermissionDao.readAllByUserId(id);
+        return converter.convertEntitiesToDto(permissionsFromDS, UserPermission.class);
     }
 }

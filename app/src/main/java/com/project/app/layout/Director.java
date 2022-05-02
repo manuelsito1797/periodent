@@ -3,8 +3,11 @@ package com.project.app.layout;
 import com.project.app.PeriodentApp;
 import com.project.app.controller.LoginDialogController;
 import com.project.app.controller.RootLayoutController;
+import com.project.app.user.view.EditPermissionView;
 import com.project.app.user.view.EditUserView;
+import com.project.app.user.view.PermissionView;
 import com.project.app.user.view.UserView;
+import com.project.app.user.viewmodel.PermissionViewModel;
 import com.project.app.user.viewmodel.UserViewModel;
 import com.project.domain.user.preferences.UserPreferences;
 import de.saxsys.mvvmfx.FluentViewLoader;
@@ -30,9 +33,12 @@ public class Director {
     // Root layouts
     private Stage rootFromRootLayout;
     private Stage rootFromUserLayout;
+    private Stage rootFromPermissionLayout;
 
     // ViewModel
     private final UserViewModel userViewModel = new UserViewModel();
+
+    private final PermissionViewModel permissionViewModel = new PermissionViewModel();
 
     public Director(PeriodentApp periodentApp) {
         this.periodentApp = periodentApp;
@@ -74,11 +80,12 @@ public class Director {
             loader.setLocation(PeriodentApp.class.getResource("view/root-layout.fxml"));
             BorderPane rootLayout = (BorderPane) loader.load();
 
-            RootLayoutController controller = loader.getController();
-            controller.setPeriodentApp(periodentApp);
-
             var stage = new Stage();
             rootFromRootLayout = stage;
+            RootLayoutController controller = loader.getController();
+            controller.setPeriodentApp(periodentApp);
+            controller.setStage(stage);
+
             builder.setLayoutType(LayoutType.ROOT_LAYOUT);
             builder.setStage(stage);
             builder.setParent(rootLayout);
@@ -113,6 +120,7 @@ public class Director {
         var editUserLayout = viewTuple.getView();
 
         var stage = new Stage();
+        stage.setResizable(false);
         var editUserView = viewTuple.getCodeBehind();
         editUserView.setDialogStage(stage);
 
@@ -122,5 +130,42 @@ public class Director {
         builder.setTitle("Usuario");
         builder.setModality(Modality.WINDOW_MODAL);
         builder.setOwner(rootFromUserLayout);
+    }
+
+    public void constructPermissionLayout(Builder builder) {
+        ViewTuple<PermissionView, PermissionViewModel> viewTuple =FluentViewLoader.fxmlView(PermissionView.class)
+                .viewModel(permissionViewModel).load();
+
+        var stage = new Stage();
+        stage.setResizable(false);
+        rootFromPermissionLayout = stage;
+        var permissionLayout = viewTuple.getView();
+        var permissionView = viewTuple.getCodeBehind();
+        permissionView.setPeriodentApp(periodentApp);
+
+        builder.setLayoutType(LayoutType.PERMISSION_LAYOUT);
+        builder.setStage(stage);
+        builder.setParent(permissionLayout);
+        builder.setTitle("Permisos");
+        builder.setModality(Modality.WINDOW_MODAL);
+        builder.setOwner(rootFromRootLayout);
+    }
+
+    public void constructEditPermissionLayout(Builder builder) {
+        ViewTuple<EditPermissionView, PermissionViewModel> viewTuple = FluentViewLoader.fxmlView(EditPermissionView.class)
+                .viewModel(permissionViewModel).load();
+
+        var stage = new Stage();
+        stage.setResizable(false);
+        var editPermissionLayout = viewTuple.getView();
+        var editPermissionView = viewTuple.getCodeBehind();
+        editPermissionView.setStage(stage);
+
+        builder.setLayoutType(LayoutType.EDIT_PERMISSION_LAYOUT);
+        builder.setStage(stage);
+        builder.setParent(editPermissionLayout);
+        builder.setTitle("Nuevo Permiso");
+        builder.setModality(Modality.WINDOW_MODAL);
+        builder.setOwner(rootFromPermissionLayout);
     }
 }

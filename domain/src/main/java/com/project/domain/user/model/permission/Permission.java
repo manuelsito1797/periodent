@@ -1,7 +1,7 @@
 package com.project.domain.user.model.permission;
 
 /**
- * @author dhelarius 17/4/2022
+ * @author dhelarius 27/4/2022
  * periodent
  */
 public class Permission {
@@ -9,15 +9,15 @@ public class Permission {
     private int id;
     private String description;
     private String key;
-    private boolean assigned;
+    private boolean active;
 
     public Permission() {}
 
-    public Permission(int id, String description, String key, boolean assigned) {
+    public Permission(int id, String description, String key, boolean active) {
         this.id = id;
         this.description = description;
         this.key = key;
-        this.assigned = assigned;
+        this.active = active;
     }
 
     public int getId() {
@@ -44,11 +44,11 @@ public class Permission {
         this.key = key;
     }
 
-    public boolean isAssigned() {
-        return assigned;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setAssigned(boolean assigned) {
-        this.assigned = assigned;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

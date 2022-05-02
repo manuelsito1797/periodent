@@ -3,6 +3,7 @@ package com.project.app.user.view;
 import com.project.app.PeriodentApp;
 import com.project.app.user.model.FXUser;
 import com.project.app.user.viewmodel.UserViewModel;
+import com.project.app.util.CheckUtil;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.collections.transformation.FilteredList;
@@ -66,15 +67,9 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
 
         initUserColumns();
 
-        filter();
+        initFilters();
 
-        usersTable.setOnMouseClicked(mouseEvent -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
-                var user = usersTable.getSelectionModel().getSelectedItem();
-                viewModel.setUser(user);
-                periodentApp.showEditUserLayout();
-            }
-        });
+        handleEvents();
     }
 
     private void initUserColumns() {
@@ -91,17 +86,17 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
         columnStatus.setCellFactory(cell -> new CheckBoxTableCell<>());
     }
 
-    private void filter() {
-
-        FilteredList<FXUser> filteredData = new FilteredList<>(viewModel.getUsers(), p -> true);
+    private void initFilters() {
 
         statusCheckBox.setSelected(true);
+
+        FilteredList<FXUser> filteredData = new FilteredList<>(viewModel.getUsers(), p -> true);
 
         idFilterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(user -> {
 
                 // Si el campo está vacío, muestra a todos los usuarios.
-                if (newValue == null || newValue.isEmpty() || !isNumber(newValue)) {
+                if (newValue == null || newValue.isEmpty() || CheckUtil.isNumber(newValue)) {
                     return true;
                 }
 
@@ -145,16 +140,22 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
 
         SortedList<FXUser> usersData = new SortedList<>(filteredData);
 
+        usersData.comparatorProperty().bind(usersTable.comparatorProperty());
+
         usersTable.setItems(usersData);
     }
 
-    private boolean isNumber(String s) {
-        try {
-            Integer.parseInt(s);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    private void handleEvents() {
+        usersTable.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+                var user = usersTable.getSelectionModel().getSelectedItem();
+
+                if(user == null) return;
+
+                viewModel.setUser(user);
+                periodentApp.showEditUserLayout();
+            }
+        });
     }
 
     @FXML

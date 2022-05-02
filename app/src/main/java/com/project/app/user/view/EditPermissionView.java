@@ -58,7 +58,7 @@ public class EditPermissionView implements FxmlView<PermissionViewModel>, Initia
         if(viewModel.isNewPermission()) {
             viewModel.addPermission((response, throwable) -> {
                 if(throwable != null) {
-                    DialogUtil.errorMessage(throwable, "Guardar Permiso",
+                    DialogUtil.errorMessage(throwable, "Nuevo Permiso",
                             "Error al guardar el permiso");
                     return;
                 }
@@ -72,8 +72,16 @@ public class EditPermissionView implements FxmlView<PermissionViewModel>, Initia
                 DialogUtil.message("Exito", "¡Se ha creado el permiso satisfactoriamente!");
             });
         } else {
-            // TODO: Editar permiso
-            viewModel.updatePermission();
+            viewModel.updatePermission((response, throwable) -> {
+                if(throwable != null) {
+                    DialogUtil.errorMessage(throwable, "Editar Permiso",
+                            "Error al actualizar permiso");
+                    return;
+                }
+
+                DialogUtil.message("Exito", "¡Se ha actualizado el permiso satisfactoriamente!");
+                stage.close();
+            });
         }
     }
 

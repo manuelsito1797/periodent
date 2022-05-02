@@ -27,7 +27,18 @@ public class DSPermission implements DsGateway<PermissionDsRequestModel> {
 
     @Override
     public PermissionDsRequestModel read(int id) {
-        return null;
+        try {
+            var sql = "SELECT * FROM t_permiso WHERE f_id = " + id;
+            var result = DBUtil.executeQuery(sql);
+
+            assert result != null;
+            if(!result.next()) return null;
+
+            return getPermissionFromResult(result);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -52,6 +63,14 @@ public class DSPermission implements DsGateway<PermissionDsRequestModel> {
 
     @Override
     public void update(PermissionDsRequestModel requestModel) {
+        var id = requestModel.getId();
+        var description = StringUtil.addQuotes(requestModel.getDescription());
+        var key = StringUtil.addQuotes(requestModel.getKey());
+
+        var sql = "UPDATE t_permiso SET f_descripcion = " + description + ", " +
+                "f_key = " + key + " WHERE f_id = " + id;
+
+        DBUtil.execute(sql);
     }
 
     @Override

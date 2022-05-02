@@ -11,13 +11,11 @@ import com.project.data.user.permission.PermissionRepositoryImpl;
 import com.project.data.user.permission.UserPermissionDao;
 import com.project.domain.gateway.DsGateway;
 import com.project.domain.security.SecurityAdapter;
-import com.project.domain.user.interactor.AddPermission;
-import com.project.domain.user.interactor.GetAllPermissions;
-import com.project.domain.user.interactor.GetAllUsers;
-import com.project.domain.user.interactor.SignUp;
+import com.project.domain.user.interactor.*;
 import com.project.domain.user.model.UserDsRequestModel;
 import com.project.domain.user.model.permission.PermissionDsRequestModel;
 import com.project.domain.user.presenter.AddPermissionPresenter;
+import com.project.domain.user.presenter.UpdatePermissionPresenter;
 import com.project.domain.user.repository.PermissionRepository;
 import com.project.domain.user.repository.UserRepository;
 import io.activej.inject.Injector;
@@ -99,6 +97,16 @@ public class ActiveJ {
         @Provides
         AddPermissionPresenter addPermissionPresenter(AddPermission addPermission) {
             return new AddPermissionPresenter(addPermission);
+        }
+
+        @Provides
+        UpdatePermission updatePermission(PermissionRepository repository) {
+            return new UpdatePermission(repository);
+        }
+
+        @Provides
+        UpdatePermissionPresenter updatePermissionPresenter(UpdatePermission updatePermission) {
+            return new UpdatePermissionPresenter(updatePermission);
         }
 
         // Views

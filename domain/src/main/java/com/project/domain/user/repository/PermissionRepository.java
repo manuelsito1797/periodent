@@ -20,7 +20,7 @@ public interface PermissionRepository {
 
     List<Permission> findAll();
 
-    void Update(Permission permission);
+    void update(Permission permission);
 
     void delete(int id);
 }

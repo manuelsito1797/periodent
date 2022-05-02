@@ -7,6 +7,7 @@ import com.project.domain.user.model.permission.PermissionRequestModel;
 import com.project.domain.user.model.permission.PermissionResponseModel;
 import com.project.domain.user.presenter.AddPermissionPresenter;
 import com.project.domain.user.presenter.PermissionsPresenter;
+import com.project.domain.user.presenter.UpdatePermissionPresenter;
 import de.saxsys.mvvmfx.ViewModel;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -20,11 +21,6 @@ import javafx.beans.property.BooleanProperty;
  * periodent
  */
 public class PermissionViewModel implements ViewModel {
-
-    @FunctionalInterface
-    public interface Callback {
-        void onAddPermission(PermissionResponseModel response, Throwable throwable);
-    }
 
     private final ObservableList<FXPermission> permissions = FXCollections.observableArrayList();
 
@@ -70,17 +66,23 @@ public class PermissionViewModel implements ViewModel {
         return throwableProperty.get();
     }
 
-    public void addPermission(Callback callback) {
+    public void addPermission(Callback<PermissionResponseModel> callback) {
         var addPermissionPresenter = ActiveJ.getInstance(AddPermissionPresenter.class);
         var permission = permissionProperty.get();
-        var request = new PermissionRequestModel(permission.getId(), permission.getDescription(),
-                permission.getKey(), permission.isActive());
-
-        addPermissionPresenter.show(request, callback::onAddPermission);
+        var request = getRequestFromFXPermission(permission);
+        addPermissionPresenter.show(request, callback::onPresent);
     }
 
-    public void updatePermission() {
-        System.out.println("Update permission: " + permissionProperty.get());
+    public void updatePermission(Callback<PermissionResponseModel> callback) {
+        var updatePermissionPresenter = ActiveJ.getInstance(UpdatePermissionPresenter.class);
+        var permission = permissionProperty.get();
+        var request = getRequestFromFXPermission(permission);
+        updatePermissionPresenter.show(request, callback::onPresent);
+    }
+
+    private PermissionRequestModel getRequestFromFXPermission(FXPermission permission) {
+        return new PermissionRequestModel(permission.getId(), permission.getDescription(),
+                permission.getKey(), permission.isActive());
     }
 
     public void loadPermissions() {

@@ -9,32 +9,31 @@ import com.project.domain.view.Presenter;
 import com.project.domain.view.UseCaseWithParam;
 
 /**
- * @author dhelarius 30/4/2022
+ * @author dhelarius 2/5/2022
  * periodent
  */
-public class AddPermission implements UseCaseWithParam<PermissionRequestModel, PermissionResponseModel> {
+public class UpdatePermission implements UseCaseWithParam<PermissionRequestModel, PermissionResponseModel> {
 
     private final PermissionRepository repository;
 
-    public AddPermission(PermissionRepository repository) {
+    public UpdatePermission(PermissionRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public void execute(PermissionRequestModel param,
-                        Presenter<PermissionResponseModel> presenter) {
+    public void execute(PermissionRequestModel param, Presenter<PermissionResponseModel> presenter) {
         try {
-            PermissionValidator.validateAdd(param, repository);
+            PermissionValidator.validateUpdate(param, repository);
 
             var permission = new Permission(param.getId(), param.getDescription(),
                     param.getKey(), param.isActive());
 
-            repository.create(permission);
+            repository.update(permission);
 
-            var permissionByKey = repository.findByKey(permission.getKey());
+            var permissionById = repository.findById(permission.getId());
 
-            var response = new PermissionResponseModel(permissionByKey.getId(), permissionByKey.getDescription(),
-                    permissionByKey.getKey(), permissionByKey.isActive());
+            var response = new PermissionResponseModel(permissionById.getId(), permissionById.getDescription(),
+                    permissionById.getKey(), permission.isActive());
 
             presenter.onResponse(response, null);
         } catch (Throwable throwable) {

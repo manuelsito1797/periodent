@@ -32,7 +32,8 @@ public class PermissionRepositoryImpl implements PermissionRepository {
 
     @Override
     public Permission findById(int id) {
-        return null;
+        var permissionFromDS = dsPermission.read(id);
+        return converter.convertEntityToDto(permissionFromDS, Permission.class);
     }
 
     @Override
@@ -60,8 +61,10 @@ public class PermissionRepositoryImpl implements PermissionRepository {
     }
 
     @Override
-    public void Update(Permission permission) {
-
+    public void update(Permission permission) {
+        var request = converter
+                .convertEntityToDto(permission, PermissionDsRequestModel.class);
+        dsPermission.update(request);
     }
 
     @Override

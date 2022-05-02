@@ -10,15 +10,9 @@ import com.project.domain.user.repository.PermissionRepository;
  * periodent
  */
 public class PermissionValidator {
-    public static void validate(PermissionRequestModel requestModel,
-                                PermissionRepository repository) {
-        if(!requestModel.isValidDescription()) {
-            throw new PermitDescriptionException("Debe ingresar una descripción para el permiso.");
-        }
-
-        if(!requestModel.isValidKey()) {
-            throw new PermitKeyException("Debe ingresar una clave para el permiso.");
-        }
+    public static void validateAdd(PermissionRequestModel requestModel,
+                                   PermissionRepository repository) {
+        isValidRequest(requestModel);
 
         if(repository.findByDescription(requestModel.getDescription()) != null) {
             throw new PermitDescriptionException("Existe un permiso con la descripción que ha ingresado, favor ingrese otra descripción");
@@ -26,6 +20,20 @@ public class PermissionValidator {
 
         if(repository.findByKey(requestModel.getKey()) != null) {
             throw new PermitKeyException("Existe un permiso con la clave que ha ingresado, favor ingrese otra clave");
+        }
+    }
+
+    public static void validateUpdate(PermissionRequestModel requestModel, PermissionRepository repository) {
+        isValidRequest(requestModel);
+    }
+
+    private static void isValidRequest(PermissionRequestModel requestModel) {
+        if(!requestModel.isValidDescription()) {
+            throw new PermitDescriptionException("Debe ingresar una descripción para el permiso.");
+        }
+
+        if(!requestModel.isValidKey()) {
+            throw new PermitKeyException("Debe ingresar una clave para el permiso.");
         }
     }
 }

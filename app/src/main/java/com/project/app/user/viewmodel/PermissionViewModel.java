@@ -6,6 +6,7 @@ import com.project.domain.user.interactor.GetAllPermissions;
 import com.project.domain.user.model.permission.PermissionRequestModel;
 import com.project.domain.user.model.permission.PermissionResponseModel;
 import com.project.domain.user.presenter.AddPermissionPresenter;
+import com.project.domain.user.presenter.DeletePermissionPresenter;
 import com.project.domain.user.presenter.PermissionsPresenter;
 import com.project.domain.user.presenter.UpdatePermissionPresenter;
 import de.saxsys.mvvmfx.ViewModel;
@@ -78,6 +79,13 @@ public class PermissionViewModel implements ViewModel {
         var permission = permissionProperty.get();
         var request = getRequestFromFXPermission(permission);
         updatePermissionPresenter.show(request, callback::onPresent);
+    }
+
+    public void deletePermission(Callback<PermissionResponseModel> callback) {
+        var deletePermissionPresenter = ActiveJ.getInstance(DeletePermissionPresenter.class);
+        var permission = permissionProperty.get();
+        var request = getRequestFromFXPermission(permission);
+        deletePermissionPresenter.show(request, callback::onPresent);
     }
 
     private PermissionRequestModel getRequestFromFXPermission(FXPermission permission) {

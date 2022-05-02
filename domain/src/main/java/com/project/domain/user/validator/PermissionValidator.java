@@ -1,8 +1,10 @@
 package com.project.domain.user.validator;
 
 import com.project.domain.user.exception.PermitDescriptionException;
+import com.project.domain.user.exception.PermitException;
 import com.project.domain.user.exception.PermitKeyException;
 import com.project.domain.user.model.permission.PermissionRequestModel;
+import com.project.domain.user.repository.UserRepository;
 import com.project.domain.user.repository.PermissionRepository;
 
 /**
@@ -23,8 +25,25 @@ public class PermissionValidator {
         }
     }
 
-    public static void validateUpdate(PermissionRequestModel requestModel, PermissionRepository repository) {
+    public static void validateUpdate(PermissionRequestModel requestModel) {
         isValidRequest(requestModel);
+    }
+
+    public static void validateDelete(PermissionRequestModel requestModel, UserRepository userRepository) {
+        var users = userRepository.findAll().stream().filter(user -> {
+            var permissions = user.getPermissions();
+            for (var permission : permissions) {
+                if (permission.getId() == requestModel.getId() && permission.isAssigned()) {
+                    return true;
+                }
+            }
+            return false;
+        }).toList();
+
+        if(users.size() > 0) {
+            throw new PermitException("No puede eliminar este permiso porque está asignado a uno o varios usuarios. Si " +
+                    "desea eliminarlo quite el permiso a los usuarios que lo tienen asignado.");
+        }
     }
 
     private static void isValidRequest(PermissionRequestModel requestModel) {

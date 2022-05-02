@@ -68,7 +68,7 @@ public class PermissionRepositoryImpl implements PermissionRepository {
     }
 
     @Override
-    public void delete(int id) {
-
+    public void delete(Permission permission) {
+        dsPermission.delete(permission.getId());
     }
 }

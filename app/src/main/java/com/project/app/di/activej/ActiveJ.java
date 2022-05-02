@@ -15,6 +15,7 @@ import com.project.domain.user.interactor.*;
 import com.project.domain.user.model.UserDsRequestModel;
 import com.project.domain.user.model.permission.PermissionDsRequestModel;
 import com.project.domain.user.presenter.AddPermissionPresenter;
+import com.project.domain.user.presenter.DeletePermissionPresenter;
 import com.project.domain.user.presenter.UpdatePermissionPresenter;
 import com.project.domain.user.repository.PermissionRepository;
 import com.project.domain.user.repository.UserRepository;
@@ -107,6 +108,16 @@ public class ActiveJ {
         @Provides
         UpdatePermissionPresenter updatePermissionPresenter(UpdatePermission updatePermission) {
             return new UpdatePermissionPresenter(updatePermission);
+        }
+
+        @Provides
+        DeletePermission deletePermission(UserRepository userRepository, PermissionRepository permissionRepository) {
+            return new DeletePermission(userRepository, permissionRepository);
+        }
+
+        @Provides
+        DeletePermissionPresenter deletePermissionPresenter(DeletePermission deletePermission) {
+            return new DeletePermissionPresenter(deletePermission);
         }
 
         // Views

@@ -22,5 +22,5 @@ public interface PermissionRepository {
 
     void update(Permission permission);
 
-    void delete(int id);
+    void delete(Permission permission);
 }

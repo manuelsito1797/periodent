@@ -56,33 +56,43 @@ public class EditPermissionView implements FxmlView<PermissionViewModel>, Initia
     @FXML
     public void handleSave() {
         if(viewModel.isNewPermission()) {
-            viewModel.addPermission((response, throwable) -> {
-                if(throwable != null) {
-                    DialogUtil.errorMessage(throwable, "Nuevo Permiso",
-                            "Error al guardar el permiso");
-                    return;
-                }
-
-                viewModel.getPermissions().add(new FXPermission(response.getId(),
-                        response.getDescription(), response.getKey(), response.isActive()));
-
-                descriptionField.clear();
-                keyField.clear();
-
-                DialogUtil.message("Exito", "¡Se ha creado el permiso satisfactoriamente!");
-            });
+            DialogUtil.showConfirmationMessage(
+                    "¿Desea guardar el nuevo permiso?", "", this::addPermission
+            );
         } else {
-            viewModel.updatePermission((response, throwable) -> {
-                if(throwable != null) {
-                    DialogUtil.errorMessage(throwable, "Editar Permiso",
-                            "Error al actualizar permiso");
-                    return;
-                }
-
-                DialogUtil.message("Exito", "¡Se ha actualizado el permiso satisfactoriamente!");
-                stage.close();
-            });
+            DialogUtil.showConfirmationMessage(
+                    "¿Desea guardar los cambios realizados en el permiso?", "", this::updatePermission
+            );
         }
+    }
+
+    private void addPermission() {
+        viewModel.addPermission((response, throwable) -> {
+            if(throwable != null) {
+                DialogUtil.showErrorMessage(throwable, "Error al guardar el permiso");
+                return;
+            }
+
+            viewModel.getPermissions().add(new FXPermission(response.getId(),
+                    response.getDescription(), response.getKey(), response.isActive()));
+
+            descriptionField.clear();
+            keyField.clear();
+
+            DialogUtil.showMessage("Nuevo Permiso", "¡Se ha creado el permiso satisfactoriamente!");
+        });
+    }
+
+    private void updatePermission() {
+        viewModel.updatePermission((response, throwable) -> {
+            if(throwable != null) {
+                DialogUtil.showErrorMessage(throwable, "Error al actualizar permiso");
+                return;
+            }
+
+            DialogUtil.showMessage("Actualización Exitosa", "¡Se ha actualizado el permiso satisfactoriamente!");
+            stage.close();
+        });
     }
 
     @FXML

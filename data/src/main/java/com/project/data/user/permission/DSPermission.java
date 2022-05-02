@@ -75,6 +75,8 @@ public class DSPermission implements DsGateway<PermissionDsRequestModel> {
 
     @Override
     public void delete(int id) {
+        var sql = "UPDATE t_permiso SET f_estado = false WHERE f_id = " + id;
+        DBUtil.execute(sql);
     }
 
     private PermissionDsRequestModel getPermissionFromResult(ResultSet result) {

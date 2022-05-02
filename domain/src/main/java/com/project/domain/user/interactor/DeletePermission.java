@@ -4,6 +4,7 @@ import com.project.domain.user.model.permission.Permission;
 import com.project.domain.user.model.permission.PermissionRequestModel;
 import com.project.domain.user.model.permission.PermissionResponseModel;
 import com.project.domain.user.repository.PermissionRepository;
+import com.project.domain.user.repository.UserRepository;
 import com.project.domain.user.validator.PermissionValidator;
 import com.project.domain.view.Presenter;
 import com.project.domain.view.UseCaseWithParam;
@@ -12,28 +13,28 @@ import com.project.domain.view.UseCaseWithParam;
  * @author dhelarius 2/5/2022
  * periodent
  */
-public class UpdatePermission implements UseCaseWithParam<PermissionRequestModel, PermissionResponseModel> {
+public class DeletePermission implements UseCaseWithParam<PermissionRequestModel, PermissionResponseModel> {
 
-    private final PermissionRepository repository;
+    private final UserRepository userRepository;
+    private final PermissionRepository permissionRepository;
 
-    public UpdatePermission(PermissionRepository repository) {
-        this.repository = repository;
+    public DeletePermission(UserRepository userRepository, PermissionRepository permissionRepository) {
+        this.userRepository = userRepository;
+        this.permissionRepository = permissionRepository;
     }
 
     @Override
     public void execute(PermissionRequestModel param, Presenter<PermissionResponseModel> presenter) {
         try {
-            PermissionValidator.validateUpdate(param);
+            PermissionValidator.validateDelete(param, userRepository);
 
             var permission = new Permission(param.getId(), param.getDescription(),
                     param.getKey(), param.isActive());
 
-            repository.update(permission);
+            permissionRepository.delete(permission);
 
-            var permissionById = repository.findById(permission.getId());
-
-            var response = new PermissionResponseModel(permissionById.getId(), permissionById.getDescription(),
-                    permissionById.getKey(), permission.isActive());
+            var response = new PermissionResponseModel(permission.getId(), permission.getDescription(),
+                    permission.getKey(), permission.isActive());
 
             presenter.onResponse(response, null);
         } catch (Throwable throwable) {

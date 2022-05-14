@@ -6,6 +6,7 @@ import com.project.domain.user.preferences.UserPreferences;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class RootLayoutController {
     }
 
     @FXML
-    private MenuItem permissionsMenuItem = new MenuItem();
+    private Menu permissionsMenu = new Menu();
 
     @FXML
     private MenuItem usersMenuItem = new MenuItem();
@@ -48,7 +49,7 @@ public class RootLayoutController {
 
         preferences.restrictFromPermission(permission -> {
             usersMenuItem.setVisible(permission.test("ADMIN_USERS"));
-            permissionsMenuItem.setVisible(permission.test("ADMIN_PERMISSIONS"));
+            permissionsMenu.setVisible(permission.test("ADMIN_PERMISSIONS"));
         });
     }
 
@@ -60,6 +61,11 @@ public class RootLayoutController {
     @FXML
     public void handleOpenPermissionView() {
         periodentApp.showPermissionLayout();
+    }
+
+    @FXML
+    public void handleOpenBulkAssignmentPermissionsView() {
+        periodentApp.showPermissionsAssignedLayout();
     }
 
     private int showExitDialog() {

@@ -14,11 +14,12 @@
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem fx:id="permissionsMenuItem" mnemonicParsing="false" onAction="#handleOpenPermissionView" text="Permisos">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
+                  <Menu fx:id="permissionsMenu" mnemonicParsing="false" text="Permisos">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleOpenPermissionView" text="Administrar Permisos" />
+                      <MenuItem mnemonicParsing="false" onAction="#handleOpenBulkAssignmentPermissionsView" text="Asignación Masiva de Permisos" />
+                    </items>
+                  </Menu>
                   <MenuItem mnemonicParsing="false" text="Cambiar Contraseña">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />

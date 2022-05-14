@@ -3,10 +3,7 @@ package com.project.app.layout;
 import com.project.app.PeriodentApp;
 import com.project.app.controller.LoginDialogController;
 import com.project.app.controller.RootLayoutController;
-import com.project.app.user.view.EditPermissionView;
-import com.project.app.user.view.EditUserView;
-import com.project.app.user.view.PermissionView;
-import com.project.app.user.view.UserView;
+import com.project.app.user.view.*;
 import com.project.app.user.viewmodel.PermissionViewModel;
 import com.project.app.user.viewmodel.UserViewModel;
 import com.project.domain.user.preferences.UserPreferences;
@@ -166,6 +163,23 @@ public class Director {
         builder.setParent(editPermissionLayout);
         builder.setTitle("Nuevo Permiso");
         builder.setModality(Modality.WINDOW_MODAL);
+        builder.setOwner(rootFromPermissionLayout);
+    }
+
+    public void constructPermissionsAssignedLayout(Builder builder) {
+        ViewTuple<PermissionsAssignedView, UserViewModel> viewTuple = FluentViewLoader.fxmlView(PermissionsAssignedView.class)
+                .viewModel(userViewModel).load();
+
+        var stage = new Stage();
+        var permissionsAssignedLayout = viewTuple.getView();
+        var permissionsAssignedView = viewTuple.getCodeBehind();
+        permissionsAssignedView.setStage(stage);
+
+        builder.setLayoutType(LayoutType.PERMISSIONS_ASSIGNED_LAYOUT);
+        builder.setStage(stage);
+        builder.setParent(permissionsAssignedLayout);
+        builder.setTitle("Asignación Masiva de Permisos");
+        builder.setModality(Modality.NONE);
         builder.setOwner(rootFromPermissionLayout);
     }
 }

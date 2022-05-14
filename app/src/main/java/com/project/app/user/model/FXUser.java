@@ -30,7 +30,7 @@ public class FXUser {
 
     public FXUser() {
         this(0, null, null, null, null,
-                null, null, null, null, false, null);
+                null, null, null, null, false, new ArrayList<>());
     }
 
     public FXUser(int id, String name, String lastname, String dni, String phone, String email,

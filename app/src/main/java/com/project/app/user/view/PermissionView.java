@@ -163,7 +163,7 @@ public class PermissionView implements FxmlView<PermissionViewModel>, Initializa
                 ButtonType button = alert.showAndWait().orElse(ButtonType.CANCEL);
 
                 if(button.equals(seeAssignedPermissions)) {
-                    System.out.println("Ver permisos asignados");
+                    periodentApp.showPermissionsAssignedLayout();
                 }
                 return;
             }

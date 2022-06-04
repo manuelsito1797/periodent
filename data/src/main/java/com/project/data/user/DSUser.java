@@ -5,6 +5,7 @@ import com.project.adapter.db.IDBAdapter;
 import com.project.domain.gateway.DsGateway;
 import com.project.domain.user.model.UserDsRequestModel;
 import util.DBUtil;
+import util.StringUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,7 +68,26 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
 
     @Override
     public void update(UserDsRequestModel requestModel) {
+        var id = requestModel.getId();
+        var name = StringUtil.addQuotes(requestModel.getName());
+        var lastname = StringUtil.addQuotes(requestModel.getLastname());
+        var dni = StringUtil.addQuotes(requestModel.getDni());
+        var phone = StringUtil.addQuotes(requestModel.getPhone());
+        var email = StringUtil.addQuotes(requestModel.getEmail());
+        var username = StringUtil.addQuotes(requestModel.getUsername());
+        var password = requestModel.getPassword();
 
+        var sql = "UPDATE t_usuario SET f_nombre="+ name +", f_apellido="+ lastname +", f_cedula="+ dni +" , " +
+                "f_telefono="+ phone +", f_email="+ email +", f_usuario="+ username;
+
+        if(!password.isEmpty()) {
+            password = StringUtil.addQuotes(password);
+            sql += ", f_password=" + password;
+        }
+
+        sql += " WHERE f_id=" + id;
+
+        DBUtil.execute(sql);
     }
 
     @Override

@@ -3,11 +3,17 @@ package com.project.app.user.viewmodel;
 import com.project.app.di.activej.ActiveJ;
 import com.project.app.user.model.FXUser;
 import com.project.domain.user.interactor.GetAllUsers;
+import com.project.domain.user.model.UserRequestModel;
 import com.project.domain.user.model.UserResponseModel;
+import com.project.domain.user.model.permission.UserPermission;
+import com.project.domain.user.preferences.UserPreferences;
+import com.project.domain.user.presenter.UpdateUserPresenter;
 import com.project.domain.user.presenter.UsersPresenter;
 import com.project.domain.view.View;
 import de.saxsys.mvvmfx.ViewModel;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +29,22 @@ public class UserViewModel implements ViewModel, View<List<UserResponseModel>> {
     private final String LOG = this.getClass().getSimpleName() + ": ";
 
     private final ObservableList<FXUser> users = FXCollections.observableArrayList();
+
     private final ObjectProperty<FXUser> userProperty = new SimpleObjectProperty<>();
+
+    private final BooleanProperty newUser = new SimpleBooleanProperty(false);
+
+    public BooleanProperty getNewUserProperty() {
+        return newUser;
+    }
+
+    public void setNewUser(boolean isNewUser) {
+        newUser.set(isNewUser);
+    }
+
+    public boolean isNewUser() {
+        return newUser.get();
+    }
 
     public void loadUsers() {
         var usersPresenter = new UsersPresenter(ActiveJ.getInstance(GetAllUsers.class), this);
@@ -50,13 +71,32 @@ public class UserViewModel implements ViewModel, View<List<UserResponseModel>> {
     public void show(List<UserResponseModel> value) {
         for(var user: value) {
             users.add(new FXUser(user.getId(), user.getName(), user.getLastname(), user.getDni(),
-                    user.getPhone(), user.getEmail(), user.getUsername(), user.getCreatedBy(), user.getCreationDate(),
-                    user.isStatus(), user.getPermissions()));
+                    user.getPhone(), user.getEmail(), user.getUsername(), "", user.getCreatedBy(),
+                    user.getCreationDate(), user.isStatus(), user.getPermissions()));
         }
     }
 
     @Override
     public void showErrorMessage(Throwable throwable) {
         System.out.println("Error: " + throwable.getMessage());
+    }
+
+    public void update(Callback<UserResponseModel> callback) {
+        var presenter = ActiveJ.getInstance(UpdateUserPresenter.class);
+        var user = userProperty.get();
+
+        var pref = UserPreferences.getInstance();
+        var userPref = pref.getUserFromPreference();
+
+        var request = new UserRequestModel(user.getId(), user.getName(), user.getLastname(), user.getDni(),
+                user.getPhone(), user.getEmail(), user.getUsername(), user.getPassword(), userPref.getId(),
+                user.getCreationDate(), user.isStatus());
+
+        for(var permission : user.getPermissions()) {
+            request.getPermissions().add(new UserPermission(permission.getId(),
+                    permission.getDescription(), permission.getKey(), permission.isAssigned()));
+        }
+
+        presenter.show(request, callback::onPresent);
     }
 }

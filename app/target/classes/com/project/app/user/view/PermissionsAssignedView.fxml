@@ -19,20 +19,39 @@
                     </rowConstraints>
                      <children>
                         <Label text="Permiso" />
-                        <ChoiceBox prefHeight="29.0" prefWidth="150.0" GridPane.columnIndex="1" />
+                        <ChoiceBox fx:id="choicePermissions" prefHeight="29.0" prefWidth="150.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <HBox layoutX="398.0" layoutY="15.0" prefHeight="31.0" prefWidth="237.0" spacing="8.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
+                  <HBox layoutX="398.0" layoutY="15.0" prefHeight="25.0" prefWidth="274.0" spacing="8.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="123.0" text="Seleccionar todos" />
-                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" text="Quitar todos" />
+                        <Button mnemonicParsing="false" onAction="#selectAll" prefHeight="31.0" prefWidth="123.0" text="Seleccionar todos" />
+                        <Button mnemonicParsing="false" onAction="#deselectAll" prefHeight="31.0" prefWidth="150.0" text="Deseleccionar todos" />
                      </children>
                   </HBox>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="313.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+            <AnchorPane prefHeight="415.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TreeView fx:id="treeView" prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TableView fx:id="usersTable" prefHeight="256.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="columnSelection" maxWidth="2000.0" prefWidth="2000.0" text="Selección" />
+                      <TableColumn fx:id="columnName" prefWidth="75.0" text="Nombre" />
+                        <TableColumn fx:id="columnLastname" prefWidth="75.0" text="Apellido" />
+                        <TableColumn fx:id="columnUsername" prefWidth="75.0" text="Usuario" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children></AnchorPane>
+            <AnchorPane prefHeight="150.0" prefWidth="600.0">
+               <children>
+                  <ButtonBar layoutY="18.0" prefHeight="43.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0">
+                    <buttons>
+                      <Button mnemonicParsing="false" onAction="#assingPermission" text="Asignar permiso" />
+                        <Button layoutX="511.0" layoutY="19.0" mnemonicParsing="false" onAction="#removePermission" text="Quitar permiso" />
+                    </buttons>
+                  </ButtonBar>
                </children>
             </AnchorPane>
          </children>

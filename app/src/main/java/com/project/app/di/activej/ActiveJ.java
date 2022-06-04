@@ -5,6 +5,7 @@ import com.project.adapter.security.cipher.CipherAdapter;
 import com.project.app.LoginApp;
 import com.project.app.controller.LoginDialogController;
 import com.project.data.user.DSUser;
+import com.project.data.user.UserDao;
 import com.project.data.user.UserRepositoryImpl;
 import com.project.data.user.permission.DSPermission;
 import com.project.data.user.permission.PermissionRepositoryImpl;
@@ -12,11 +13,13 @@ import com.project.data.user.permission.UserPermissionDao;
 import com.project.domain.gateway.DsGateway;
 import com.project.domain.security.SecurityAdapter;
 import com.project.domain.user.interactor.*;
+import com.project.domain.user.model.User;
 import com.project.domain.user.model.UserDsRequestModel;
 import com.project.domain.user.model.permission.PermissionDsRequestModel;
 import com.project.domain.user.presenter.AddPermissionPresenter;
 import com.project.domain.user.presenter.DeletePermissionPresenter;
 import com.project.domain.user.presenter.UpdatePermissionPresenter;
+import com.project.domain.user.presenter.UpdateUserPresenter;
 import com.project.domain.user.repository.PermissionRepository;
 import com.project.domain.user.repository.UserRepository;
 import io.activej.inject.Injector;
@@ -53,14 +56,19 @@ public class ActiveJ {
         }
 
         @Provides
+        UserDao userDao() {
+            return new UserDao();
+        }
+
+        @Provides
         UserPermissionDao dsPermission() {
             return new UserPermissionDao();
         }
 
         @Provides
-        UserRepository userRepository(DsGateway<UserDsRequestModel> dsUser, UserPermissionDao userPermissionDao,
-                                      EntityDtoConverter converter) {
-            return new UserRepositoryImpl(dsUser, userPermissionDao, converter);
+        UserRepository userRepository(DsGateway<UserDsRequestModel> dsUser, UserDao userDao,
+                                      UserPermissionDao userPermissionDao, EntityDtoConverter converter) {
+            return new UserRepositoryImpl(dsUser, userDao, userPermissionDao, converter);
         }
 
         @Provides
@@ -118,6 +126,16 @@ public class ActiveJ {
         @Provides
         DeletePermissionPresenter deletePermissionPresenter(DeletePermission deletePermission) {
             return new DeletePermissionPresenter(deletePermission);
+        }
+
+        @Provides
+        UpdateUser updateUser(UserRepository repository, SecurityAdapter securityAdapter) {
+            return new UpdateUser(repository, securityAdapter);
+        }
+
+        @Provides
+        UpdateUserPresenter updateUserPresenter(UpdateUser updateUser) {
+            return new UpdateUserPresenter(updateUser);
         }
 
         // Views

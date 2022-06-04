@@ -23,18 +23,21 @@ public class FXUser {
     private final StringProperty phone;
     private final StringProperty email;
     private final StringProperty username;
+    private final StringProperty password;
     private final StringProperty createdBy;
     private final Property<Timestamp> creationDate;
     private final BooleanProperty status;
     private final ObservableList<FXUserPermission> permissions;
+    private final BooleanProperty selected;
 
     public FXUser() {
         this(0, null, null, null, null,
-                null, null, null, null, false, new ArrayList<>());
+                null, null, null, null, null, false,
+                new ArrayList<>());
     }
 
     public FXUser(int id, String name, String lastname, String dni, String phone, String email,
-                  String username, String createdBy, Timestamp creationDate , boolean status,
+                  String username, String password, String createdBy, Timestamp creationDate , boolean status,
                   List<UserPermission> permissions) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
@@ -43,9 +46,11 @@ public class FXUser {
         this.phone = new SimpleStringProperty(phone);
         this.email = new SimpleStringProperty(email);
         this.username = new SimpleStringProperty(username);
+        this.password = new SimpleStringProperty(password);
         this.createdBy = new SimpleStringProperty(createdBy);
         this.creationDate = new SimpleObjectProperty<>(creationDate);
         this.status = new SimpleBooleanProperty(status);
+        this.selected = new SimpleBooleanProperty(false);
 
         var fxPermissions = new ArrayList<FXUserPermission>();
         for(var permission : permissions) {
@@ -140,6 +145,18 @@ public class FXUser {
         this.username.set(username);
     }
 
+    public String getPassword() {
+        return password.get();
+    }
+
+    public StringProperty passwordProperty() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password.set(password);
+    }
+
     public String getCreatedBy() {
         return createdBy.get();
     }
@@ -178,6 +195,18 @@ public class FXUser {
 
     public ObservableList<FXUserPermission> getPermissions() {
         return permissions;
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
     }
 
     @Override

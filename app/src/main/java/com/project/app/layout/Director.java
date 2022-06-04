@@ -8,6 +8,7 @@ import com.project.app.user.viewmodel.PermissionViewModel;
 import com.project.app.user.viewmodel.UserViewModel;
 import com.project.domain.user.preferences.UserPreferences;
 import de.saxsys.mvvmfx.FluentViewLoader;
+import de.saxsys.mvvmfx.ViewModel;
 import de.saxsys.mvvmfx.ViewTuple;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -167,7 +168,7 @@ public class Director {
     }
 
     public void constructPermissionsAssignedLayout(Builder builder) {
-        ViewTuple<PermissionsAssignedView, UserViewModel> viewTuple = FluentViewLoader.fxmlView(PermissionsAssignedView.class)
+        ViewTuple<PermissionsAssignedView,UserViewModel> viewTuple = FluentViewLoader.fxmlView(PermissionsAssignedView.class)
                 .viewModel(userViewModel).load();
 
         var stage = new Stage();

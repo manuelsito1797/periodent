@@ -153,6 +153,7 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
                 if(user == null) return;
 
                 viewModel.setUser(user);
+                viewModel.setNewUser(false);
                 periodentApp.showEditUserLayout();
             }
         });

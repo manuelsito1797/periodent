@@ -1,13 +1,16 @@
 package com.project.domain.user.model;
 
+import com.project.domain.user.model.permission.UserPermission;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * @author dhelarius 10/4/2022
+ * @author dhelarius 28/5/2022
  * periodent
  */
-public class UserDsRequestModel {
+public class UserRequestModel {
 
     private int id;
     private String name;
@@ -20,10 +23,9 @@ public class UserDsRequestModel {
     private int createdBy;
     private Timestamp creationDate;
     private boolean status;
+    private List<UserPermission> permissions = new ArrayList<>();
 
-    public UserDsRequestModel() {}
-
-    public UserDsRequestModel(int id, String name, String lastname, String dni, String phone,
+    public UserRequestModel(int id, String name, String lastname, String dni, String phone,
                               String email, String username, String password, int createdBy,
                               Timestamp creationDate, boolean status) {
         this.id = id;
@@ -125,6 +127,26 @@ public class UserDsRequestModel {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public List<UserPermission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<UserPermission> permissions) {
+        this.permissions = permissions;
+    }
+
+    public boolean isValid() {
+        return !name.isEmpty() && !lastname.isEmpty();
+    }
+
+    public boolean isValidUsername() {
+        return !username.isEmpty();
+    }
+
+    public boolean isValidPassword() {
+        return !password.isEmpty() && password.length() >= 4;
     }
 
     @Override

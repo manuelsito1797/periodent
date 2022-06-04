@@ -1,6 +1,7 @@
 package com.project.app.user.view;
 
 import com.project.app.user.viewmodel.UserViewModel;
+import com.project.app.util.DialogUtil;
 import com.project.domain.user.preferences.UserPreferences;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
@@ -66,6 +67,7 @@ public class EditUserView implements FxmlView<UserViewModel>, Initializable {
         phoneField.textProperty().bindBidirectional(viewModel.getUser().phoneProperty());
         emailField.textProperty().bindBidirectional(viewModel.getUser().emailProperty());
         usernameField.textProperty().bindBidirectional(viewModel.getUser().usernameProperty());
+        passwordField.textProperty().bindBidirectional(viewModel.getUser().passwordProperty());
 
         var permissions = viewModel.getUser().getPermissions();
         for(var permission : permissions) {
@@ -80,11 +82,44 @@ public class EditUserView implements FxmlView<UserViewModel>, Initializable {
 
     @FXML
     public void handleSaveUser() {
-        System.out.println("Guardar datos de usuario.");
+        if(passwordField.getText().isEmpty() ^ confirmPasswordField.getText().isEmpty()) {
+            var throwable = new Exception("Error al actualizar contraseña");
+            DialogUtil.showErrorMessage(throwable, "Uno de los campos de contraseña esta vació.");
+            return;
+        }
+
+        if(!passwordField.getText().isEmpty() && !confirmPasswordField.getText().isEmpty()) {
+            if(!passwordField.getText().equals(confirmPasswordField.getText())) {
+                var throwable = new Exception("Error al actualizar contraseña");
+                DialogUtil.showErrorMessage(throwable, "La contraseña dada no coincide.");
+                return;
+            }
+        }
+
+        if(viewModel.isNewUser()) {
+            // TODO: Guardar nuevo usuario
+        } else {
+            DialogUtil.showConfirmationMessage(
+                    "¿Desea guardar los cambios realizados en el usuario?", "", this::update
+            );
+        }
     }
 
     @FXML
     public void handleClose() {
         stage.close();
+    }
+
+    private void update() {
+        viewModel.update(((response, throwable) -> {
+            if(throwable != null) {
+                DialogUtil.showErrorMessage(throwable, "Error al actualizar usuario");
+                return;
+            }
+
+            DialogUtil.showMessage("Actualización Exitosa", "¡Se ha actualizado el usuario satisfactoriamente!");
+            passwordField.clear();
+            stage.close();
+        }));
     }
 }

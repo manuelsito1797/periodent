@@ -17,13 +17,16 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
 
     private final DsGateway<UserDsRequestModel> userDsGateway;
+    private final UserDao userDao;
     private final UserPermissionDao userPermissionDao;
     private final EntityDtoConverter converter;
 
     public UserRepositoryImpl(DsGateway<UserDsRequestModel> userDsGateway,
+                              UserDao userDao,
                               UserPermissionDao userPermissionDao,
                               EntityDtoConverter converter) {
         this.userDsGateway = userDsGateway;
+        this.userDao = userDao;
         this.userPermissionDao = userPermissionDao;
         this.converter = converter;
     }
@@ -72,7 +75,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void update(CommonUser user) {
-
+        var userRequest = converter.convertEntityToDto(user, UserDsRequestModel.class);
+        userDsGateway.update(userRequest);
+        userDao.updateUserPermissions(user);
     }
 
     @Override

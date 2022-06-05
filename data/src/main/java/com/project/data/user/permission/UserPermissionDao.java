@@ -27,7 +27,7 @@ public class UserPermissionDao {
         try {
             var sql = "SELECT p.f_id,p.f_descripcion,p.f_key,\n" +
                     "(SELECT (CASE WHEN pu.f_id_permiso = p.f_id THEN true ELSE false END)\n" +
-                    "FROM t_permiso_usuario pu WHERE pu.f_id_usuario = 1 AND pu.f_id_permiso = p.f_id) AS asignado\n" +
+                    "FROM t_permiso_usuario pu WHERE pu.f_id_usuario = "+ id +" AND pu.f_id_permiso = p.f_id) AS asignado\n" +
                     "FROM t_permiso p LEFT JOIN t_permiso_usuario pu ON pu.f_id_permiso = p.f_id\n" +
                     "WHERE p.f_estado = true";
             var result = executeQuery(sql);

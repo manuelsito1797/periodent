@@ -1,6 +1,7 @@
 package com.project.domain.user.repository;
 
 import com.project.domain.user.model.CommonUser;
+import com.project.domain.user.model.permission.UserPermission;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface UserRepository {
     void update(CommonUser user);
 
     void delete(int id);
+
+    boolean existByUsername(String username);
 }

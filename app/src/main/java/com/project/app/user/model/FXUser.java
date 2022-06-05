@@ -1,6 +1,7 @@
 package com.project.app.user.model;
 
 import com.project.app.user.model.permission.FXUserPermission;
+import com.project.domain.user.model.User;
 import com.project.domain.user.model.permission.UserPermission;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -27,8 +28,8 @@ public class FXUser {
     private final StringProperty createdBy;
     private final Property<Timestamp> creationDate;
     private final BooleanProperty status;
-    private final ObservableList<FXUserPermission> permissions;
     private final BooleanProperty selected;
+    private ObservableList<FXUserPermission> permissions;
 
     public FXUser() {
         this(0, null, null, null, null,
@@ -51,14 +52,7 @@ public class FXUser {
         this.creationDate = new SimpleObjectProperty<>(creationDate);
         this.status = new SimpleBooleanProperty(status);
         this.selected = new SimpleBooleanProperty(false);
-
-        var fxPermissions = new ArrayList<FXUserPermission>();
-        for(var permission : permissions) {
-            fxPermissions.add(new FXUserPermission(permission.getId(), permission.getDescription(),
-                    permission.getKey(), permission.isAssigned()));
-        }
-        ObservableList<FXUserPermission> observableList = FXCollections.observableList(fxPermissions);
-        this.permissions = new SimpleListProperty<>(observableList);
+        initPermissions(permissions);
     }
 
     public int getId() {
@@ -193,6 +187,10 @@ public class FXUser {
         this.status.set(status);
     }
 
+    public void setPermissions(List<UserPermission> permissions) {
+        initPermissions(permissions);
+    }
+
     public ObservableList<FXUserPermission> getPermissions() {
         return permissions;
     }
@@ -207,6 +205,16 @@ public class FXUser {
 
     public void setSelected(boolean selected) {
         this.selected.set(selected);
+    }
+
+    private void initPermissions(List<UserPermission> permissions) {
+        var fxPermissions = new ArrayList<FXUserPermission>();
+        for(var permission : permissions) {
+            fxPermissions.add(new FXUserPermission(permission.getId(), permission.getDescription(),
+                    permission.getKey(), permission.isAssigned()));
+        }
+        ObservableList<FXUserPermission> observableList = FXCollections.observableList(fxPermissions);
+        this.permissions = new SimpleListProperty<>(observableList);
     }
 
     @Override

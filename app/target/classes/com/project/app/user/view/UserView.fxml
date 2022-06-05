@@ -36,7 +36,12 @@
                                     </CheckBox>
                                  </children>
                               </GridPane>
-                              <Button layoutX="490.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleNewUser" text="Nuevo" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <VBox layoutX="461.3999938964844" layoutY="19.6" prefHeight="200.0" prefWidth="100.0" spacing="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                 <children>
+                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleNew" prefHeight="28.0" prefWidth="100.0" text="Nuevo" />
+                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="100.0" text="Eliminar" />
+                                 </children>
+                              </VBox>
                            </children></AnchorPane>
                      </content></TitledPane>
                </children>

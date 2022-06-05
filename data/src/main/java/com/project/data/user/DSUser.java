@@ -27,7 +27,19 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
 
     @Override
     public void create(UserDsRequestModel requestModel) {
+        var name = StringUtil.addQuotes(requestModel.getName());
+        var lastname = StringUtil.addQuotes(requestModel.getLastname());
+        var dni = StringUtil.addQuotes(requestModel.getDni());
+        var phone = StringUtil.addQuotes(requestModel.getPhone());
+        var email = StringUtil.addQuotes(requestModel.getEmail());
+        var username = StringUtil.addQuotes(requestModel.getUsername());
+        var password = StringUtil.addQuotes(requestModel.getPassword());
+        var createdBy = requestModel.getCreatedBy();
 
+        var sql = "INSERT INTO t_usuario (f_nombre,f_apellido,f_cedula,f_telefono,f_email,f_usuario,f_password,f_creado_por) VALUES\n" +
+                "("+ name +","+ lastname +","+ dni +","+ phone +","+ email +","+ username +","+ password +","+ createdBy +")";
+
+        DBUtil.execute(sql);
     }
 
     @Override

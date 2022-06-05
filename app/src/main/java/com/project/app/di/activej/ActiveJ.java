@@ -11,15 +11,12 @@ import com.project.data.user.permission.DSPermission;
 import com.project.data.user.permission.PermissionRepositoryImpl;
 import com.project.data.user.permission.UserPermissionDao;
 import com.project.domain.gateway.DsGateway;
+import com.project.domain.mapper.Mapper;
 import com.project.domain.security.SecurityAdapter;
 import com.project.domain.user.interactor.*;
-import com.project.domain.user.model.User;
 import com.project.domain.user.model.UserDsRequestModel;
 import com.project.domain.user.model.permission.PermissionDsRequestModel;
-import com.project.domain.user.presenter.AddPermissionPresenter;
-import com.project.domain.user.presenter.DeletePermissionPresenter;
-import com.project.domain.user.presenter.UpdatePermissionPresenter;
-import com.project.domain.user.presenter.UpdateUserPresenter;
+import com.project.domain.user.presenter.*;
 import com.project.domain.user.repository.PermissionRepository;
 import com.project.domain.user.repository.UserRepository;
 import io.activej.inject.Injector;
@@ -46,7 +43,7 @@ public class ActiveJ {
         }
 
         @Provides
-        EntityDtoConverter converter() {
+        Mapper converter() {
             return new EntityDtoConverter();
         }
 
@@ -67,13 +64,13 @@ public class ActiveJ {
 
         @Provides
         UserRepository userRepository(DsGateway<UserDsRequestModel> dsUser, UserDao userDao,
-                                      UserPermissionDao userPermissionDao, EntityDtoConverter converter) {
+                                      UserPermissionDao userPermissionDao, Mapper converter) {
             return new UserRepositoryImpl(dsUser, userDao, userPermissionDao, converter);
         }
 
         @Provides
         PermissionRepository permissionRepository(DsGateway<PermissionDsRequestModel> dsPermissionRequest,
-                                                  EntityDtoConverter converter) {
+                                                  Mapper converter) {
             return new PermissionRepositoryImpl(dsPermissionRequest, converter);
         }
 
@@ -91,6 +88,16 @@ public class ActiveJ {
         @Provides
         GetAllUsers getAllUsers(UserRepository repository) {
              return new GetAllUsers(repository);
+        }
+
+        @Provides
+        AddUser addUser(UserRepository repository, SecurityAdapter securityAdapter, Mapper converter) {
+            return new AddUser(repository, securityAdapter, converter);
+        }
+
+        @Provides
+        AddUserPresenter addUserPresenter(AddUser addUser) {
+            return new AddUserPresenter(addUser);
         }
 
         @Provides

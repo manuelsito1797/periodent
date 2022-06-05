@@ -2,11 +2,13 @@ package com.project.app.user.viewmodel;
 
 import com.project.app.di.activej.ActiveJ;
 import com.project.app.user.model.FXUser;
+import com.project.domain.mapper.Mapper;
 import com.project.domain.user.interactor.GetAllUsers;
 import com.project.domain.user.model.UserRequestModel;
 import com.project.domain.user.model.UserResponseModel;
 import com.project.domain.user.model.permission.UserPermission;
 import com.project.domain.user.preferences.UserPreferences;
+import com.project.domain.user.presenter.AddUserPresenter;
 import com.project.domain.user.presenter.UpdateUserPresenter;
 import com.project.domain.user.presenter.UsersPresenter;
 import com.project.domain.view.View;
@@ -81,6 +83,20 @@ public class UserViewModel implements ViewModel, View<List<UserResponseModel>> {
         System.out.println("Error: " + throwable.getMessage());
     }
 
+    public void save(Callback<UserResponseModel> callback) {
+        var presenter = ActiveJ.getInstance(AddUserPresenter.class);
+        var user = userProperty.get();
+
+        var request = getUserRequest(user);
+
+        for(var permission : user.getPermissions()) {
+            request.getPermissions().add(new UserPermission(permission.getId(),
+                    permission.getDescription(), permission.getKey(), permission.isAssigned()));
+        }
+
+        presenter.show(request, callback::onPresent);
+    }
+
     public void update(Callback<UserResponseModel> callback) {
         var presenter = ActiveJ.getInstance(UpdateUserPresenter.class);
         var user = userProperty.get();
@@ -98,5 +114,14 @@ public class UserViewModel implements ViewModel, View<List<UserResponseModel>> {
         }
 
         presenter.show(request, callback::onPresent);
+    }
+
+    private UserRequestModel getUserRequest(FXUser user) {
+        var pref = UserPreferences.getInstance();
+        var userPref = pref.getUserFromPreference();
+
+        return new UserRequestModel(user.getId(), user.getName(), user.getLastname(), user.getDni(),
+                user.getPhone(), user.getEmail(), user.getUsername(), user.getPassword(), userPref.getId(),
+                user.getCreationDate(), user.isStatus());
     }
 }

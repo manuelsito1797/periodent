@@ -147,7 +147,6 @@ public class PermissionView implements FxmlView<PermissionViewModel>, Initializa
 
     @FXML
     public void handleDelete() {
-        // TODO: Eliminar permiso
         DialogUtil.showConfirmationMessage(
                 "¿Desea eliminar el permiso?", "", this::deletePermission);
     }

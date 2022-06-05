@@ -1,6 +1,7 @@
 package com.project.data.user.permission;
 
 import com.project.adapter.converter.modelmapper.EntityDtoConverter;
+import com.project.domain.mapper.Mapper;
 import com.project.domain.user.model.permission.Permission;
 import com.project.domain.user.model.permission.PermissionDsRequestModel;
 import com.project.domain.user.repository.PermissionRepository;
@@ -15,10 +16,10 @@ import java.util.List;
 public class PermissionRepositoryImpl implements PermissionRepository {
 
     private final DsGateway<PermissionDsRequestModel> dsPermission;
-    private final EntityDtoConverter converter;
+    private final Mapper converter;
 
     public PermissionRepositoryImpl(DsGateway<PermissionDsRequestModel> dsPermission,
-                                    EntityDtoConverter converter) {
+                                    Mapper converter) {
         this.dsPermission = dsPermission;
         this.converter = converter;
     }

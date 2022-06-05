@@ -3,6 +3,7 @@ package com.project.data.user;
 import com.project.adapter.converter.modelmapper.EntityDtoConverter;
 import com.project.data.user.permission.UserPermissionDao;
 import com.project.domain.gateway.DsGateway;
+import com.project.domain.mapper.Mapper;
 import com.project.domain.user.model.CommonUser;
 import com.project.domain.user.model.UserDsRequestModel;
 import com.project.domain.user.model.permission.UserPermission;
@@ -19,12 +20,12 @@ public class UserRepositoryImpl implements UserRepository {
     private final DsGateway<UserDsRequestModel> userDsGateway;
     private final UserDao userDao;
     private final UserPermissionDao userPermissionDao;
-    private final EntityDtoConverter converter;
+    private final Mapper converter;
 
     public UserRepositoryImpl(DsGateway<UserDsRequestModel> userDsGateway,
                               UserDao userDao,
                               UserPermissionDao userPermissionDao,
-                              EntityDtoConverter converter) {
+                              Mapper converter) {
         this.userDsGateway = userDsGateway;
         this.userDao = userDao;
         this.userPermissionDao = userPermissionDao;
@@ -33,7 +34,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void create(CommonUser user) {
-
+        var userFromDs = converter.convertEntityToDto(user, UserDsRequestModel.class);
+        userDsGateway.create(userFromDs);
+        userDao.applyUserPermissions(user);
     }
 
     @Override
@@ -55,6 +58,8 @@ public class UserRepositoryImpl implements UserRepository {
 
         for(var user : users) {
             if(user.getUsername().equals(username)) {
+                var permissions = getPermissions(user.getId());
+                user.setPermissions(permissions);
                 return user;
             }
         }
@@ -77,12 +82,18 @@ public class UserRepositoryImpl implements UserRepository {
     public void update(CommonUser user) {
         var userRequest = converter.convertEntityToDto(user, UserDsRequestModel.class);
         userDsGateway.update(userRequest);
-        userDao.updateUserPermissions(user);
+        userDao.applyUserPermissions(user);
     }
 
     @Override
     public void delete(int id) {
 
+    }
+
+    @Override
+    public boolean existByUsername(String username) {
+        var user = findByUsername(username);
+        return user != null;
     }
 
     private List<UserPermission> getPermissions(int id) {

@@ -15,4 +15,5 @@
     exports com.project.domain.user.interactor;
     exports com.project.domain.user.presenter;
     exports com.project.domain.user.preferences;
+    exports com.project.domain.mapper;
  }

@@ -25,6 +25,8 @@ public class UserRequestModel {
     private boolean status;
     private List<UserPermission> permissions = new ArrayList<>();
 
+    public UserRequestModel() {}
+
     public UserRequestModel(int id, String name, String lastname, String dni, String phone,
                               String email, String username, String password, int createdBy,
                               Timestamp creationDate, boolean status) {

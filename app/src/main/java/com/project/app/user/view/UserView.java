@@ -2,8 +2,10 @@ package com.project.app.user.view;
 
 import com.project.app.PeriodentApp;
 import com.project.app.user.model.FXUser;
+import com.project.app.user.viewmodel.PermissionViewModel;
 import com.project.app.user.viewmodel.UserViewModel;
 import com.project.app.util.CheckUtil;
+import com.project.domain.user.model.permission.UserPermission;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.collections.transformation.FilteredList;
@@ -29,6 +31,8 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
 
     @InjectViewModel
     private UserViewModel viewModel;
+
+    private final PermissionViewModel permissionViewModel = new PermissionViewModel();
 
     @FXML
     private TextField idFilterField;
@@ -160,7 +164,23 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
     }
 
     @FXML
-    public void handleNewUser() {
-        // TODO: Crear nuevo usuario
+    public void handleNew() {
+        viewModel.setNewUser(true);
+        var user = new FXUser();
+        user.setPermissions(getUserPermissionsNotAssigned());
+        viewModel.setUser(user);
+        periodentApp.showEditUserLayout();
+    }
+
+    private List<UserPermission> getUserPermissionsNotAssigned() {
+        List<UserPermission> userPermissions = new ArrayList<>();
+        permissionViewModel.loadPermissions();
+        var permissions = permissionViewModel.getPermissions();
+        for(var permission : permissions) {
+            userPermissions.add(new UserPermission(permission.getId(), permission.getDescription(),
+                    permission.getKey(), false));
+        }
+
+        return userPermissions;
     }
 }

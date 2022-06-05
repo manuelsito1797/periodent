@@ -41,8 +41,9 @@ public class UpdateUser implements UseCaseWithParam<UserRequestModel, UserRespon
 
             repository.update(user);
 
+            var name = user.getName().concat(" " + user.getLastname());
             var response = new UserResponseModel(user.getId(), user.getName(), user.getLastname(), user.getDni(),
-                    user.getPhone(), user.getEmail(), user.getUsername(), String.valueOf(user.getCreatedBy()),
+                    user.getPhone(), user.getEmail(), user.getUsername(), name,
                     user.getCreationDate(), user.isStatus());
 
             presenter.onResponse(response, null);

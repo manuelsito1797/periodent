@@ -1,5 +1,6 @@
 package com.project.app.user.view;
 
+import com.project.app.user.model.FXUser;
 import com.project.app.user.viewmodel.UserViewModel;
 import com.project.app.util.DialogUtil;
 import com.project.domain.user.preferences.UserPreferences;
@@ -45,8 +46,6 @@ public class EditUserView implements FxmlView<UserViewModel>, Initializable {
     private final ObservableList<CheckBox> checkBoxList = FXCollections.observableArrayList();
     @FXML private ListView<CheckBox> permissionListView;
 
-    @FXML private Button saveButton = new Button();
-
     private Stage stage;
 
     public void setDialogStage(Stage stage) {
@@ -82,7 +81,7 @@ public class EditUserView implements FxmlView<UserViewModel>, Initializable {
 
     @FXML
     public void handleSaveUser() {
-        if(passwordField.getText().isEmpty() ^ confirmPasswordField.getText().isEmpty()) {
+        if(passwordField.getText() == null ^ confirmPasswordField.getText() == null) {
             var throwable = new Exception("Error al actualizar contraseña");
             DialogUtil.showErrorMessage(throwable, "Uno de los campos de contraseña esta vació.");
             return;
@@ -97,7 +96,9 @@ public class EditUserView implements FxmlView<UserViewModel>, Initializable {
         }
 
         if(viewModel.isNewUser()) {
-            // TODO: Guardar nuevo usuario
+            DialogUtil.showConfirmationMessage(
+                    "¿Desea crear el nuevo usuario?", "", this::save
+            );
         } else {
             DialogUtil.showConfirmationMessage(
                     "¿Desea guardar los cambios realizados en el usuario?", "", this::update
@@ -110,8 +111,25 @@ public class EditUserView implements FxmlView<UserViewModel>, Initializable {
         stage.close();
     }
 
+    private void save() {
+        viewModel.save((response, throwable) -> {
+            if(throwable != null) {
+                DialogUtil.showErrorMessage(throwable, "Error al crear nuevo usuario");
+                return;
+            }
+
+            viewModel.getUsers().add(new FXUser(response.getId(), response.getName(), response.getLastname(),
+                    response.getDni(), response.getPhone(), response.getEmail(), response.getUsername(), "",
+                    response.getCreatedBy(), response.getCreationDate(), response.isStatus(), response.getPermissions()));
+
+            DialogUtil.showMessage("Operación Exitosa", "¡Se ha creado el usuario satisfactoriamente!");
+            passwordField.clear();
+            stage.close();
+        });
+    }
+
     private void update() {
-        viewModel.update(((response, throwable) -> {
+        viewModel.update((response, throwable) -> {
             if(throwable != null) {
                 DialogUtil.showErrorMessage(throwable, "Error al actualizar usuario");
                 return;
@@ -120,6 +138,6 @@ public class EditUserView implements FxmlView<UserViewModel>, Initializable {
             DialogUtil.showMessage("Actualización Exitosa", "¡Se ha actualizado el usuario satisfactoriamente!");
             passwordField.clear();
             stage.close();
-        }));
+        });
     }
 }

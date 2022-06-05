@@ -9,7 +9,7 @@ import util.DBUtil;
  */
 public class UserDao {
 
-    public void updateUserPermissions(CommonUser user) {
+    public void applyUserPermissions(CommonUser user) {
         var sql = "";
         var permissions = user.getPermissions();
         for(var permission : permissions) {

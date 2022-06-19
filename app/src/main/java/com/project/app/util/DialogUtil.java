@@ -38,11 +38,11 @@ public class DialogUtil {
         }
     }
 
-    public static void showErrorMessage(Throwable throwable, String contentText) {
+    public static void showErrorMessage(Throwable throwable, String headerText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
-        alert.setHeaderText(throwable.getMessage());
-        alert.setContentText(contentText);
+        alert.setHeaderText(headerText);
+        alert.setContentText(throwable.getMessage());
         alert.showAndWait();
     }
 }

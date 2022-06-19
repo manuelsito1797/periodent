@@ -104,7 +104,8 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
 
     @Override
     public void delete(int id) {
-
+        var sql = "UPDATE t_usuario SET f_estado = false WHERE f_id =" + id;
+        DBUtil.execute(sql);
     }
 
     private UserDsRequestModel getUserFromResult(ResultSet result) {

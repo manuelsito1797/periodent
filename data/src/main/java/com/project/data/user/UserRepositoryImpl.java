@@ -87,7 +87,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void delete(int id) {
-
+        userDsGateway.delete(id);
     }
 
     @Override

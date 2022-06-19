@@ -145,6 +145,16 @@ public class ActiveJ {
             return new UpdateUserPresenter(updateUser);
         }
 
+        @Provides
+        DeleteUser deleteUser(UserRepository repository, Mapper mapper) {
+            return new DeleteUser(repository, mapper);
+        }
+
+        @Provides
+        DeleteUserPresenter deleteUserPresenter(DeleteUser deleteUser) {
+            return new DeleteUserPresenter(deleteUser);
+        }
+
         // Views
         @Provides
         LoginDialogController loginDialogController() {

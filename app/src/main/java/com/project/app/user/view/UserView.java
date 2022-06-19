@@ -5,6 +5,7 @@ import com.project.app.user.model.FXUser;
 import com.project.app.user.viewmodel.PermissionViewModel;
 import com.project.app.user.viewmodel.UserViewModel;
 import com.project.app.util.CheckUtil;
+import com.project.app.util.DialogUtil;
 import com.project.domain.user.model.permission.UserPermission;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
@@ -151,6 +152,14 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
 
     private void handleEvents() {
         usersTable.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 1) {
+                var user = usersTable.getSelectionModel().getSelectedItem();
+
+                if(user == null) return;
+
+                viewModel.setUser(user);
+            }
+
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
                 var user = usersTable.getSelectionModel().getSelectedItem();
 
@@ -182,5 +191,31 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
         }
 
         return userPermissions;
+    }
+
+    @FXML
+    public void handleDelete() {
+        DialogUtil.showConfirmationMessage(
+                "¿Desea eliminar el usuario?", "", this::deleteUser
+        );
+    }
+
+    private void deleteUser() {
+        viewModel.delete((response, throwable) -> {
+            if(throwable != null) {
+                DialogUtil.showErrorMessage(throwable, "Ha ocurrido un al eliminar el usuario");
+                return;
+            }
+
+            viewModel.getUsers().removeIf(user -> {
+                if(user.getId() == response.getId()) {
+                    return true;
+                }
+                return false;
+            });
+
+            System.out.println("Deleted: " + response);
+            DialogUtil.showMessage("Usuario Eliminado", "!Se ha eliminado el usuario satisfactoriamente¡");
+        });
     }
 }

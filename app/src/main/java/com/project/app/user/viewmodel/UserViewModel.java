@@ -9,6 +9,7 @@ import com.project.domain.user.model.UserResponseModel;
 import com.project.domain.user.model.permission.UserPermission;
 import com.project.domain.user.preferences.UserPreferences;
 import com.project.domain.user.presenter.AddUserPresenter;
+import com.project.domain.user.presenter.DeleteUserPresenter;
 import com.project.domain.user.presenter.UpdateUserPresenter;
 import com.project.domain.user.presenter.UsersPresenter;
 import com.project.domain.view.View;
@@ -113,6 +114,12 @@ public class UserViewModel implements ViewModel, View<List<UserResponseModel>> {
                     permission.getDescription(), permission.getKey(), permission.isAssigned()));
         }
 
+        presenter.show(request, callback::onPresent);
+    }
+
+    public void delete(Callback<UserResponseModel> callback) {
+        var presenter = ActiveJ.getInstance(DeleteUserPresenter.class);
+        var request = getUserRequest(userProperty.get());
         presenter.show(request, callback::onPresent);
     }
 

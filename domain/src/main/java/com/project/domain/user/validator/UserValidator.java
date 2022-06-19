@@ -31,6 +31,19 @@ public class UserValidator {
         }
     }
 
+    public static void validateDelete(UserRequestModel requestModel, UserRepository repository) {
+        var users = repository.findAll().stream().filter(user -> {
+            if(requestModel.getId() == user.getId()) {
+                return true;
+            }
+            return false;
+        }).toList();
+
+        if(users.isEmpty()) {
+            throw new UserInvalidException("No puede eliminar el usuario especificado porqué no existe.");
+        }
+    }
+
     private static void validate(UserRequestModel requestModel) {
         if(!requestModel.isValid()) {
             throw new UserInvalidException("El nombre o apellido no pueden estar vacíos.");

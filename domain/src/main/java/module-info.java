@@ -16,4 +16,6 @@
     exports com.project.domain.user.presenter;
     exports com.project.domain.user.preferences;
     exports com.project.domain.mapper;
+    exports com.project.domain.patient.repository;
+    exports com.project.domain.patient.model;
  }

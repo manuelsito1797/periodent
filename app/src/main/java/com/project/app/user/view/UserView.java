@@ -93,9 +93,10 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
 
     private void initFilters() {
 
-        statusCheckBox.setSelected(true);
-
-        FilteredList<FXUser> filteredData = new FilteredList<>(viewModel.getUsers(), p -> true);
+        FilteredList<FXUser> filteredData = new FilteredList<>(viewModel.getUsers(), user -> {
+            if(user.isStatus()) return true;
+            return false;
+        });
 
         idFilterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(user -> {
@@ -137,7 +138,13 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
         statusCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(user -> {
                 if(newValue) {
-                    return true;
+                    if(user.isStatus()) {
+                        return true;
+                    }
+                } else {
+                    if(!user.isStatus()) {
+                        return true;
+                    }
                 }
                 return false;
             });

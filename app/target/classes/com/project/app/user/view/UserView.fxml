@@ -29,7 +29,7 @@
                                     <TextField fx:id="idFilterField" prefHeight="25.0" prefWidth="54.0" GridPane.columnIndex="1" />
                                     <Label text="Nombre" GridPane.rowIndex="1" />
                                     <TextField fx:id="nameFilterField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-                                    <CheckBox fx:id="statusCheckBox" mnemonicParsing="false" text="Activo" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                                    <CheckBox fx:id="statusCheckBox" mnemonicParsing="false" selected="true" text="Activo" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>

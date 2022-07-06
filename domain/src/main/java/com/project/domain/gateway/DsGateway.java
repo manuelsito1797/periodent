@@ -17,4 +17,6 @@ public interface DsGateway<T> {
     void update(T requestModel);
 
     void delete(int id);
+
+    T readLast();
 }

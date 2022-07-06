@@ -79,6 +79,11 @@ public class DSPermission implements DsGateway<PermissionDsRequestModel> {
         DBUtil.execute(sql);
     }
 
+    @Override
+    public PermissionDsRequestModel readLast() {
+        return null;
+    }
+
     private PermissionDsRequestModel getPermissionFromResult(ResultSet result) {
         try {
             int id = result.getInt(1);

@@ -4,7 +4,6 @@ import com.project.domain.mapper.Mapper;
 import com.project.domain.patient.model.*;
 import com.project.domain.patient.repository.PatientRepository;
 import com.project.domain.patient.validator.PatientValidator;
-import com.project.domain.user.model.CommonUser;
 import com.project.domain.user.repository.UserRepository;
 import com.project.domain.view.Presenter;
 import com.project.domain.view.UseCaseWithParam;

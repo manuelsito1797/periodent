@@ -8,4 +8,8 @@ public class StringUtil {
     public static String addQuotes(String str) {
         return "\"" + str + "\"";
     }
+
+    public static String removeLastChar(String str) {
+        return str.substring(0, str.length() - 1);
+    }
 }

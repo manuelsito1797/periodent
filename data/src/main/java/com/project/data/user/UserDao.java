@@ -14,7 +14,7 @@ public class UserDao {
         var permissions = user.getPermissions();
         for(var permission : permissions) {
             if(permission.isAssigned()) {
-                sql = "REPLACE INTO t_permiso_usuario (f_id_usuario, f_id_permiso)\n" +
+                sql = "INSERT IGNORE INTO t_permiso_usuario (f_id_usuario, f_id_permiso)\n" +
                         "VALUES ("+ user.getId() +", "+ permission.getId() +")";
             } else {
                 sql = "DELETE FROM t_permiso_usuario WHERE f_id_usuario = "+

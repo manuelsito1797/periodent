@@ -20,19 +20,20 @@
                       <MenuItem mnemonicParsing="false" onAction="#handleOpenBulkAssignmentPermissionsView" text="Asignación Masiva de Permisos" />
                     </items>
                   </Menu>
+                  <MenuItem mnemonicParsing="false" text="Cambiar Contraseña">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="usersMenuItem1" mnemonicParsing="false" onAction="#handleOpenUserView" text="Pacientes">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem fx:id="usersMenuItem11" mnemonicParsing="false" onAction="#handleOpenUserView" text="Especialistas">
+                  <MenuItem fx:id="usersMenuItem11" mnemonicParsing="false" text="Especialistas">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Cambiar Contraseña">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />

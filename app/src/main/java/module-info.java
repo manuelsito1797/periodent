@@ -26,6 +26,8 @@ module com.project.app {
     opens com.project.app.di.activej to io.activej.inject;
     opens com.project.app.user.view to de.saxsys.mvvmfx, javafx.fxml;
     opens com.project.app.user.viewmodel to de.saxsys.mvvmfx,javafx.fxml;
+    opens com.project.app.patient.view to de.saxsys.mvvmfx, javafx.fxml;
+    opens com.project.app.patient.viewmodel to de.saxsys.mvvmfx,javafx.fxml;
     exports com.project.app;
     exports com.project.app.controller;
 }

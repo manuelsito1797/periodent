@@ -1,7 +1,5 @@
 package com.project.data.user;
 
-import com.project.adapter.db.DBFactory;
-import com.project.adapter.db.IDBAdapter;
 import com.project.domain.gateway.DsGateway;
 import com.project.domain.user.model.UserDsRequestModel;
 import util.DBUtil;
@@ -10,7 +8,6 @@ import util.StringUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,12 +15,6 @@ import java.util.List;
  * periodent
  */
 public class DSUser implements DsGateway<UserDsRequestModel> {
-
-    private final IDBAdapter adapter;
-
-    public DSUser() {
-        adapter = DBFactory.getAdapter();
-    }
 
     @Override
     public void create(UserDsRequestModel requestModel) {
@@ -60,22 +51,8 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
 
     @Override
     public List<UserDsRequestModel> readAll() {
-        List<UserDsRequestModel> users = new ArrayList<>();
-
-        try {
-            var sql = "select * from t_usuario";
-            var result = DBUtil.executeQuery(sql);
-
-            assert result != null;
-            while (result.next()) {
-                var current = getUserFromResult(result);
-                users.add(current);
-            }
-            return users;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        var sql = "select * from t_usuario";
+        return DBUtil.readAllFromQuery(sql, this::getUserFromResult);
     }
 
     @Override
@@ -104,7 +81,13 @@ public class DSUser implements DsGateway<UserDsRequestModel> {
 
     @Override
     public void delete(int id) {
+        var sql = "UPDATE t_usuario SET f_estado = false WHERE f_id =" + id;
+        DBUtil.execute(sql);
+    }
 
+    @Override
+    public UserDsRequestModel readLast() {
+        return null;
     }
 
     private UserDsRequestModel getUserFromResult(ResultSet result) {

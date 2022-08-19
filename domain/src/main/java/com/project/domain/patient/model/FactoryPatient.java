@@ -8,7 +8,7 @@ import java.sql.Date;
  */
 public class FactoryPatient {
 
-    public static Patient createPatient(PatienType type, int id, String name, String lastname, Date birthday, String dni,
+    /*public static Patient createPatient(PatienType type, int id, String name, String lastname, Date birthday, String dni,
                                         String phone, String address, String email, int createdBy,
                                         String createdByName, boolean active) {
 
@@ -21,5 +21,5 @@ public class FactoryPatient {
                     address, email, createdBy, createdByName, active);
             default: return null;
         }
-    }
+    }*/
 }

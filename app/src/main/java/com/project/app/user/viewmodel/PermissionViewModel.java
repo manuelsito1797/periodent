@@ -88,11 +88,6 @@ public class PermissionViewModel implements ViewModel {
         deletePermissionPresenter.show(request, callback::onPresent);
     }
 
-    private PermissionRequestModel getRequestFromFXPermission(FXPermission permission) {
-        return new PermissionRequestModel(permission.getId(), permission.getDescription(),
-                permission.getKey(), permission.isActive());
-    }
-
     public void loadPermissions() {
         var permissionsPresenter = new PermissionsPresenter(ActiveJ.getInstance(GetAllPermissions.class));
         permissionsPresenter.show((response, throwable) -> {
@@ -105,5 +100,10 @@ public class PermissionViewModel implements ViewModel {
                         permission.getKey(), permission.isActive()));
             }
         });
+    }
+
+    private PermissionRequestModel getRequestFromFXPermission(FXPermission permission) {
+        return new PermissionRequestModel(permission.getId(), permission.getDescription(),
+                permission.getKey(), permission.isActive());
     }
 }

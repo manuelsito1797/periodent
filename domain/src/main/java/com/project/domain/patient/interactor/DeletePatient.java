@@ -37,11 +37,11 @@ public class DeletePatient implements UseCaseWithParam<PatientRequestModel, Pati
             var creator = userRepository.findById(patient.getCreatedBy());
             var creatorName = creator.getName().concat(" " + creator.getLastname());
 
-            var response = (PatientResponseModel) FactoryPatient.createPatient(PatienType.PATIENT_RESPONSE_MODEL, patient.getId(),
+            /*var response = (PatientResponseModel) FactoryPatient.createPatient(PatienType.PATIENT_RESPONSE_MODEL, patient.getId(),
                     patient.getName(), patient.getLastname(), patient.getBirthday(), patient.getDni(), patient.getPhone(),
-                    patient.getAddress(), patient.getEmail(), patient.getCreatedBy(), creatorName, patient.isActive());
+                    patient.getAddress(), patient.getEmail(), patient.getCreatedBy(), creatorName, patient.isActive());*/
 
-            presenter.onResponse(response, null);
+            presenter.onResponse(null, null);
         } catch (Throwable throwable) {
             presenter.onResponse(null, throwable);
         }

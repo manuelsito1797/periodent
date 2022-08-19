@@ -4,6 +4,8 @@ import com.project.adapter.converter.modelmapper.EntityDtoConverter;
 import com.project.adapter.security.cipher.CipherAdapter;
 import com.project.app.LoginApp;
 import com.project.app.controller.LoginDialogController;
+import com.project.data.patient.DSPatient;
+import com.project.data.patient.PatientRepositoryEmpl;
 import com.project.data.user.DSUser;
 import com.project.data.user.UserDao;
 import com.project.data.user.UserRepositoryImpl;
@@ -12,6 +14,12 @@ import com.project.data.user.permission.PermissionRepositoryImpl;
 import com.project.data.user.permission.UserPermissionDao;
 import com.project.domain.gateway.DsGateway;
 import com.project.domain.mapper.Mapper;
+import com.project.domain.patient.interactor.AddPatient;
+import com.project.domain.patient.interactor.GetAllPatients;
+import com.project.domain.patient.model.PatientDsRequestModel;
+import com.project.domain.patient.presenter.AddPatientPresenter;
+import com.project.domain.patient.presenter.PatientsPresenter;
+import com.project.domain.patient.repository.PatientRepository;
 import com.project.domain.security.SecurityAdapter;
 import com.project.domain.user.interactor.*;
 import com.project.domain.user.model.UserDsRequestModel;
@@ -153,6 +161,37 @@ public class ActiveJ {
         @Provides
         DeleteUserPresenter deleteUserPresenter(DeleteUser deleteUser) {
             return new DeleteUserPresenter(deleteUser);
+        }
+
+        // Patient
+        @Provides
+        DsGateway<PatientDsRequestModel> dsPatient() {
+            return new DSPatient();
+        }
+
+        @Provides
+        PatientRepository patientRepository(DsGateway<PatientDsRequestModel> request, Mapper converter) {
+            return new PatientRepositoryEmpl(request, converter);
+        }
+
+        @Provides
+        AddPatient addPatient(PatientRepository patientRepository, UserRepository userRepository) {
+            return new AddPatient(patientRepository, userRepository);
+        }
+
+        @Provides
+        AddPatientPresenter addPatientPresenter(AddPatient addPatient) {
+            return new AddPatientPresenter(addPatient);
+        }
+
+        @Provides
+        GetAllPatients getAllPatients(PatientRepository patientRepository, UserRepository userRepository) {
+            return new GetAllPatients(patientRepository, userRepository);
+        }
+
+        @Provides
+        PatientsPresenter patientsPresenter(GetAllPatients getAllPatients) {
+            return new PatientsPresenter(getAllPatients);
         }
 
         // Views

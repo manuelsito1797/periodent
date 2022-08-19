@@ -37,11 +37,9 @@ public class RootLayoutController {
         StageEventUtil.setOnCloseRequest(this::showExitDialog, stage);
     }
 
-    @FXML
-    private Menu permissionsMenu = new Menu();
+    @FXML private Menu permissionsMenu = new Menu();
 
-    @FXML
-    private MenuItem usersMenuItem = new MenuItem();
+    @FXML private MenuItem usersMenuItem = new MenuItem();
 
     @FXML
     private void initialize() {
@@ -61,6 +59,11 @@ public class RootLayoutController {
     @FXML
     public void handleOpenPermissionView() {
         periodentApp.showPermissionLayout();
+    }
+
+    @FXML
+    public void handleOpenPatientView() {
+        periodentApp.showPatientLayout();
     }
 
     @FXML

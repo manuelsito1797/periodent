@@ -1,14 +1,12 @@
 package com.project.domain.patient.model;
 
-import com.project.domain.segregator.Identity;
-
 import java.sql.Date;
 
 /**
  * @author dhelarius 25/6/2022
  * periodent
  */
-public class PatientDsRequestModel implements Patient, Identity {
+public class PatientDsRequestModel {
 
     private int id;
     private String name;
@@ -37,69 +35,83 @@ public class PatientDsRequestModel implements Patient, Identity {
         this.active = active;
     }
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
-    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getLastname() {
         return lastName;
     }
 
-    @Override
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public Date getBirthday() {
         return birthday;
     }
 
-    @Override
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
     public String getDni() {
         return dni;
     }
 
-    @Override
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
     public String getPhone() {
         return phone;
     }
 
-    @Override
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getAddress() {
         return address;
     }
 
-    @Override
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getEmail() {
         return email;
     }
 
-    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public int getCreatedBy() {
         return createdBy;
     }
 
-    @Override
+    public void setCreatedBy(int createdBy) {
+        this.createdBy = createdBy;
+    }
+
     public boolean isActive() {
         return active;
     }
 
-    @Override
-    public String toString() {
-        return "PatientDsRequestModel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthday=" + birthday +
-                ", dni='" + dni + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", createdBy=" + createdBy +
-                ", active=" + active +
-                '}';
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

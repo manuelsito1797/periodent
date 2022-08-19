@@ -3,6 +3,9 @@ package com.project.app.layout;
 import com.project.app.PeriodentApp;
 import com.project.app.controller.LoginDialogController;
 import com.project.app.controller.RootLayoutController;
+import com.project.app.patient.view.EditPatientView;
+import com.project.app.patient.view.PatientView;
+import com.project.app.patient.viewmodel.PatientViewModel;
 import com.project.app.user.view.*;
 import com.project.app.user.viewmodel.PermissionViewModel;
 import com.project.app.user.viewmodel.UserViewModel;
@@ -32,11 +35,12 @@ public class Director {
     private Stage rootFromRootLayout;
     private Stage rootFromUserLayout;
     private Stage rootFromPermissionLayout;
+    private Stage rootFromPatientLayout;
 
     // ViewModel
     private final UserViewModel userViewModel = new UserViewModel();
-
     private final PermissionViewModel permissionViewModel = new PermissionViewModel();
+    private final PatientViewModel patientViewModel = new PatientViewModel();
 
     public Director(PeriodentApp periodentApp) {
         this.periodentApp = periodentApp;
@@ -127,7 +131,7 @@ public class Director {
         builder.setParent(editUserLayout);
         builder.setTitle("Usuario");
         builder.setModality(Modality.WINDOW_MODAL);
-        builder.setOwner(rootFromUserLayout);
+        builder.setOwner(rootFromPatientLayout);
     }
 
     public void constructPermissionLayout(Builder builder) {
@@ -181,6 +185,42 @@ public class Director {
         builder.setParent(permissionsAssignedLayout);
         builder.setTitle("Asignación Masiva de Permisos");
         builder.setModality(Modality.NONE);
+        builder.setOwner(rootFromPermissionLayout);
+    }
+
+    public void constructPatientLayout(Builder builder) {
+        ViewTuple<PatientView, PatientViewModel> viewTuple = FluentViewLoader.fxmlView(PatientView.class)
+                .viewModel(patientViewModel).load();
+
+        var stage = new Stage();
+        rootFromPatientLayout = stage;
+        var patientLayout = viewTuple.getView();
+        var patientView = viewTuple.getCodeBehind();
+        patientView.setStage(stage);
+        patientView.setPeriodentApp(periodentApp);
+
+        builder.setLayoutType(LayoutType.PATIENT_LAYOUT);
+        builder.setStage(stage);
+        builder.setParent(patientLayout);
+        builder.setTitle("Pacientes");
+        builder.setModality(Modality.NONE);
+        builder.setOwner(rootFromPermissionLayout);
+    }
+
+    public void constructEditPatientLayout(Builder builder) {
+        ViewTuple<EditPatientView, PatientViewModel> viewTuple = FluentViewLoader.fxmlView(EditPatientView.class)
+                .viewModel(patientViewModel).load();
+
+        var stage = new Stage();
+        var editPatientLayout = viewTuple.getView();
+        var editPatientView = viewTuple.getCodeBehind();
+        editPatientView.setStage(stage);
+
+        builder.setLayoutType(LayoutType.PATIENT_LAYOUT);
+        builder.setStage(stage);
+        builder.setParent(editPatientLayout);
+        builder.setTitle("");
+        builder.setModality(Modality.WINDOW_MODAL);
         builder.setOwner(rootFromPermissionLayout);
     }
 }

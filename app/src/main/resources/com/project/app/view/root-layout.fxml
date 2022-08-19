@@ -26,7 +26,7 @@
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="usersMenuItem1" mnemonicParsing="false" onAction="#handleOpenUserView" text="Pacientes">
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpenPatientView" text="Pacientes">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>

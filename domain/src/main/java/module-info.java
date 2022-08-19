@@ -18,6 +18,8 @@
     exports com.project.domain.mapper;
     exports com.project.domain.patient.repository;
     exports com.project.domain.patient.model;
+    exports com.project.domain.patient.interactor;
+    exports com.project.domain.patient.presenter;
     exports com.project.domain.specialist.repository;
     exports com.project.domain.specialist.model.specialist;
     exports com.project.domain.specialist.model.specialty;

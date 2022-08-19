@@ -45,7 +45,6 @@ public class PermissionView implements FxmlView<PermissionViewModel>, Initializa
 
     @FXML
     private TableView<FXPermission> permissionsTable = new TableView<>();
-
     @FXML private TableColumn<FXPermission, Number> columnId = new TableColumn<>("ID");
     @FXML private TableColumn<FXPermission, String> columnDescription = new TableColumn<>("Descripcion");
     @FXML private TableColumn<FXPermission, String> columnKey = new TableColumn<>("Clave");
@@ -57,9 +56,7 @@ public class PermissionView implements FxmlView<PermissionViewModel>, Initializa
         viewModel.loadPermissions();
 
         initPermissionsColumns();
-
         initFilters();
-
         handleEvents();
     }
 

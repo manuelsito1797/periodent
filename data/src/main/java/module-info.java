@@ -9,4 +9,5 @@
 
     exports com.project.data.user;
     exports com.project.data.user.permission;
+    exports com.project.data.patient;
 }

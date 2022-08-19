@@ -71,9 +71,7 @@ public class UserView implements FxmlView<UserViewModel>, Initializable {
         viewModel.loadUsers();
 
         initUserColumns();
-
         initFilters();
-
         handleEvents();
     }
 

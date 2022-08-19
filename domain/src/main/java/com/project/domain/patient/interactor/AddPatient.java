@@ -26,9 +26,9 @@ public class AddPatient implements UseCaseWithParam<PatientRequestModel, Patient
         try {
             PatientValidator.validate(param);
 
-            var patient = (CommonPatient) FactoryPatient.createPatient(PatienType.COMMON_PATIENT,0, param.getName(),
+            var patient = new CommonPatient(); /*(CommonPatient) FactoryPatient.createPatient(PatienType.COMMON_PATIENT,0, param.getName(),
                     param.getLastname(), param.getBirthday(), param.getDni(), param.getPhone(), param.getAddress(), param.getEmail(),
-                    param.getCreatedBy(), null, param.isActive());
+                    param.getCreatedBy(), null, param.isActive());*/
 
             patientRepository.create(patient);
 
@@ -36,9 +36,9 @@ public class AddPatient implements UseCaseWithParam<PatientRequestModel, Patient
             var creator = userRepository.findById(last.getCreatedBy());
             var creatorName = creator.getName().concat(" " + creator.getLastname());
 
-            var response = (PatientResponseModel) FactoryPatient.createPatient(PatienType.PATIENT_RESPONSE_MODEL,
+            var response = new PatientResponseModel(); /*(PatientResponseModel) FactoryPatient.createPatient(PatienType.PATIENT_RESPONSE_MODEL,
                     last.getId(), last.getName(), last.getLastname(), last.getBirthday(), last.getDni(), last.getPhone(),
-                    last.getAddress(), last.getEmail(), last.getCreatedBy(), creatorName, last.isActive());
+                    last.getAddress(), last.getEmail(), last.getCreatedBy(), creatorName, last.isActive());*/
 
             presenter.onResponse(response, null);
         } catch (Throwable throwable) {

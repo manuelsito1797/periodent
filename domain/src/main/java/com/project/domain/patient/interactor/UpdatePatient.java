@@ -38,11 +38,11 @@ public class UpdatePatient implements UseCaseWithParam<PatientRequestModel, Pati
             var creator = userRepository.findById(updated.getCreatedBy());
             var creatorName = creator.getName().concat(" " + creator.getLastname());
 
-            var response = (PatientResponseModel) FactoryPatient.createPatient(PatienType.PATIENT_RESPONSE_MODEL, updated.getId(),
+            /*var response = (PatientResponseModel) FactoryPatient.createPatient(PatienType.PATIENT_RESPONSE_MODEL, updated.getId(),
                     updated.getName(), updated.getLastname(), updated.getBirthday(), updated.getDni(), updated.getPhone(),
-                    updated.getAddress(), updated.getEmail(), updated.getCreatedBy(), creatorName, updated.isActive());
+                    updated.getAddress(), updated.getEmail(), updated.getCreatedBy(), creatorName, updated.isActive());*/
 
-            presenter.onResponse(response, null);
+            presenter.onResponse(null, null);
         } catch (Throwable throwable) {
             presenter.onResponse(null, throwable);
         }

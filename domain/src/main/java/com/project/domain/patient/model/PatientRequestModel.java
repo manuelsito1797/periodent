@@ -101,7 +101,6 @@ public class PatientRequestModel implements Patient, Identity {
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
-                ", createdBy=" + createdBy +
                 ", active=" + active +
                 '}';
     }

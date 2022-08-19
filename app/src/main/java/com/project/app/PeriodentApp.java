@@ -55,6 +55,14 @@ public class PeriodentApp extends Application {
         showLayout(director::constructPermissionsAssignedLayout);
     }
 
+    public void showPatientLayout() {
+        showLayout(director::constructPatientLayout);
+    }
+
+    public void showEditPatientLayout() {
+        showLayout(director::constructEditPatientLayout);
+    }
+
    private void showLayout(Consumer<Builder> consumer) {
         consumer.accept(builder);
         builder.getResult().show();

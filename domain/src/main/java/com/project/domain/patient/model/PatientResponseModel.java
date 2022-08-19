@@ -1,15 +1,12 @@
 package com.project.domain.patient.model;
 
-import com.project.domain.segregator.CreatorNominator;
-import com.project.domain.segregator.Identity;
-
 import java.sql.Date;
 
 /**
  * @author dhelarius 25/6/2022
  * periodent
  */
-public class PatientResponseModel implements Patient, Identity, CreatorNominator {
+public class PatientResponseModel {
 
     private int id;
     private String name;
@@ -40,57 +37,46 @@ public class PatientResponseModel implements Patient, Identity, CreatorNominator
         this.active = active;
     }
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public String getLastname() {
         return lastname;
     }
 
-    @Override
     public Date getBirthday() {
         return birthday;
     }
 
-    @Override
     public String getDni() {
         return dni;
     }
 
-    @Override
     public String getPhone() {
         return phone;
     }
 
-    @Override
     public String getAddress() {
         return address;
     }
 
-    @Override
     public String getEmail() {
         return email;
     }
 
-    @Override
     public int getCreatedBy() {
         return createdBy;
     }
 
-    @Override
     public String getCreatedByName() {
         return createdByName;
     }
 
-    @Override
     public boolean isActive() {
         return active;
     }

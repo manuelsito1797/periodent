@@ -6,12 +6,15 @@ import com.project.app.controller.RootLayoutController;
 import com.project.app.patient.view.EditPatientView;
 import com.project.app.patient.view.PatientView;
 import com.project.app.patient.viewmodel.PatientViewModel;
+import com.project.app.specialist.view.EditSpecialtyView;
+import com.project.app.specialist.view.SpecialistView;
+import com.project.app.specialist.viewmodel.SpecialistViewModel;
+import com.project.app.specialist.viewmodel.SpecialtyViewModel;
 import com.project.app.user.view.*;
 import com.project.app.user.viewmodel.PermissionViewModel;
 import com.project.app.user.viewmodel.UserViewModel;
 import com.project.domain.user.preferences.UserPreferences;
 import de.saxsys.mvvmfx.FluentViewLoader;
-import de.saxsys.mvvmfx.ViewModel;
 import de.saxsys.mvvmfx.ViewTuple;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -36,11 +39,14 @@ public class Director {
     private Stage rootFromUserLayout;
     private Stage rootFromPermissionLayout;
     private Stage rootFromPatientLayout;
+    private Stage rootFromSpecialistLayout;
 
     // ViewModel
     private final UserViewModel userViewModel = new UserViewModel();
     private final PermissionViewModel permissionViewModel = new PermissionViewModel();
     private final PatientViewModel patientViewModel = new PatientViewModel();
+    private final SpecialistViewModel specialistViewModel = new SpecialistViewModel();
+    private final SpecialtyViewModel specialtyViewModel = new SpecialtyViewModel();
 
     public Director(PeriodentApp periodentApp) {
         this.periodentApp = periodentApp;
@@ -222,5 +228,42 @@ public class Director {
         builder.setTitle("");
         builder.setModality(Modality.WINDOW_MODAL);
         builder.setOwner(rootFromPermissionLayout);
+    }
+
+    public void constructSpecialistLayout(Builder builder) {
+        ViewTuple<SpecialistView, SpecialistViewModel> viewTuple = FluentViewLoader.fxmlView(SpecialistView.class)
+                .viewModel(specialistViewModel).load();
+
+        var stage = new Stage();
+        rootFromSpecialistLayout = stage;
+        var specialistViewLayout = viewTuple.getView();
+        var specialistView = viewTuple.getCodeBehind();
+        specialistView.setPeriodentApp(periodentApp);
+        specialistView.setStage(stage);
+
+        builder.setLayoutType(LayoutType.SPECIALIST_LAYOUT);
+        builder.setStage(stage);
+        builder.setParent(specialistViewLayout);
+        builder.setTitle("Especialista");
+        builder.setModality(Modality.WINDOW_MODAL);
+        builder.setOwner(rootFromRootLayout);
+    }
+
+    public void constructEditSpecialtyLayout(Builder builder) {
+        ViewTuple<EditSpecialtyView, SpecialtyViewModel> viewTuple = FluentViewLoader.fxmlView(EditSpecialtyView.class)
+                .viewModel(specialtyViewModel).load();
+
+        var stage = new Stage();
+        var layout = viewTuple.getView();
+        var editSpecialtyView = viewTuple.getCodeBehind();
+        editSpecialtyView.setPeriodentApp(periodentApp);
+        editSpecialtyView.setStage(stage);
+
+        builder.setLayoutType(LayoutType.SPECIALTY_LAYOUT);
+        builder.setStage(stage);
+        builder.setParent(layout);
+        builder.setTitle("Especialidad");
+        builder.setModality(Modality.WINDOW_MODAL);
+        builder.setOwner(rootFromSpecialistLayout);
     }
 }

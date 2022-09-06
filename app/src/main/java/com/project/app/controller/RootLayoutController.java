@@ -71,6 +71,19 @@ public class RootLayoutController {
         periodentApp.showPermissionsAssignedLayout();
     }
 
+    @FXML
+    public void handleOpenSpecialistView() {
+        periodentApp.showSpecialistLayout();
+    }
+
+    /**
+     * Cerrar aplicación
+     */
+    @FXML
+    public void handleExit() {
+        showExitDialog();
+    }
+
     private int showExitDialog() {
         var exit = 0;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -87,13 +100,5 @@ public class RootLayoutController {
         }
 
         return exit;
-    }
-
-    /**
-     * Cerrar aplicación
-     */
-    @FXML
-    public void handleExit() {
-        showExitDialog();
     }
 }

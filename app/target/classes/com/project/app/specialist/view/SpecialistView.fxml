@@ -117,7 +117,7 @@
                                       </rowConstraints>
                                        <children>
                                           <ChoiceBox prefHeight="28.0" prefWidth="190.0" GridPane.columnSpan="3" />
-                                          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" text="Nueva" GridPane.columnIndex="3" GridPane.columnSpan="2">
+                                          <Button mnemonicParsing="false" onAction="#handleOpenEditSpecialty" prefHeight="30.0" prefWidth="130.0" text="Nueva" GridPane.columnIndex="3" GridPane.columnSpan="2">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>

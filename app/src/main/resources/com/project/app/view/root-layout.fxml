@@ -31,7 +31,7 @@
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem fx:id="usersMenuItem11" mnemonicParsing="false" text="Especialistas">
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpenSpecialistView" text="Especialistas">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
